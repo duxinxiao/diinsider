@@ -1,39 +1,57 @@
-// http://eslint.org/docs/user-guide/configuring
-
 module.exports = {
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module'
   },
-  env: {
-    browser: true,
-  },
   extends: 'airbnb-base',
-  // required to lint *.vue files
+  env: {
+    'browser': true,
+  },
   plugins: [
     'html'
   ],
-  // check if imports actually resolve
-  'settings': {
+  globals: {
+    '$': true,
+    '$http': true,
+    '$router': true,
+  },
+  settings: {
     'import/resolver': {
       'webpack': {
         'config': 'build/webpack.base.conf.js'
       }
     }
   },
-  // add your custom rules here
-  'rules': {
-    // don't require .vue extension when importing
+  rules: {
+    // js 和 vue 不需要检查 import 的文件后缀
     'import/extensions': ['error', 'always', {
       'js': 'never',
       'vue': 'never'
     }],
-    // allow optionalDependencies
-    'import/no-extraneous-dependencies': ['error', {
-      'optionalDependencies': ['test/unit/index.js']
-    }],
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    // 可以 debugger
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    // 不要分号
+    'semi': [2, 'never'],
+    // 全部单引号
+    'quotes': [2, 'single'],
+    // 对象缩写
+    'object-shorthand': 0,
+    // 可以使用 console
+    'no-console': 0,
+    // 允许使用匿名函数
+    'func-names': 0,
+    // 允许属性的 key 值加引号
+    'quote-props': 0,
+    // 允许对函数的参数赋值
+    'no-param-reassign': 0,
+    // 函数的参数可以不使用
+    'no-unused-vars': ['error', { 'vars': 'all', 'args': 'none' }],
+    // 不用强制 export default
+    'import/prefer-default-export': 0,
+    // 不禁止箭头函数直接return对象
+    'arrow-body-style': 0,
+    // 允许short circuit evaluations
+    'no-unused-expressions': ['error', {'allowShortCircuit': true, 'allowTernary': true}],
   }
 }
