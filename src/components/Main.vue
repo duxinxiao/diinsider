@@ -3,7 +3,7 @@
 </template>
 
 <script lang="babel">
-import NavigationBar from '@/components/common/NavigationBar'
+import NavigationBar from '@/components/common/navigation-bar/NavigationBar'
 
 export default {
   components: {
@@ -11,7 +11,6 @@ export default {
   },
   data: function () {
     return {
-      activeIndex: 1,
     }
   },
   computed: {},

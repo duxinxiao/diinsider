@@ -6,15 +6,21 @@
         LOGO
       </div>
       <div class="menu">
-        <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal" @select="handleSelect">
-          <el-menu-item index="1">处理中心</el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">我的工作台</template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
+        <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal">
+          <el-menu-item index="1">首页</el-menu-item>
+          <el-menu-item index="2">社创前沿</el-menu-item>
+          <el-menu-item index="3">初创企业</el-menu-item>
+          <el-menu-item index="4">非营利组织</el-menu-item>
+          <el-menu-item index="5">影响力投资者</el-menu-item>
+          <el-submenu index="6">
+            <template slot="title">其他机构</template>
+            <div class="submenu">
+              <submenu-item class="menu-item" title="子菜单1" subtitle="subtitle" src="" to="home"></submenu-item>
+              <submenu-item class="menu-item" title="子菜单2" subtitle="subtitle" src="" to=""></submenu-item>
+              <submenu-item class="menu-item" title="子菜单3" subtitle="subtitle" src="" to=""></submenu-item>
+              <submenu-item class="menu-item" title="子菜单4" subtitle="subtitle" src="" to=""></submenu-item>
+            </div>
           </el-submenu>
-          <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
         </el-menu>
       </div>
       <div class="login">
@@ -26,10 +32,15 @@
 </template>
 
 <script lang="babel">
+import SubmenuItem from './MenuItem'
+
 export default {
+  components: {
+    SubmenuItem,
+  },
   data: function () {
     return {
-      activeIndex: 1,
+      activeIndex: '1',
     }
   },
   computed: {},
@@ -56,6 +67,7 @@ export default {
 .container {
   width: 100%;
   height: 100%;
+  position: relative;
   .logo {
     display: inline-block;
     height: 100%;
@@ -79,12 +91,22 @@ export default {
     margin-right: 30px;
   }
 }
+.submenu {
+  text-align: center;
+  .menu-item {
+    margin: 1rem 0;
+  }
+}
 </style>
 
 <style lang="scss">
 .header-wrapper {
   .el-menu {
     background-color: white;
+    position: static;
+  }
+  .el-submenu {
+    position: static;
   }
 }
 </style>
