@@ -24,7 +24,9 @@
         </el-menu>
       </div>
       <div class="login">
-        登录 / 注册
+        <router-link to="login">登录</router-link>
+        /
+        <router-link to="register">注册</router-link>
       </div>
     </div>
   </header>
@@ -89,6 +91,12 @@ export default {
     vertical-align: top;
     float: right;
     margin-right: 30px;
+
+    font-size: 14px;
+    color: #48576a;
+    & a {
+      color: #48576a;
+    }
   }
 }
 .submenu {

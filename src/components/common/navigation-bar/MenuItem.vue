@@ -37,10 +37,6 @@
   height: 125px;
   // background-color: red;
   position: relative;
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
 }
 .icon {
   width: 60px;
@@ -53,12 +49,14 @@
   height: 25px;
   line-height: 25px;
   margin-top: 10px;
+  font-size: 14px;
 }
 .subtitle {
   height: 20px;
   line-height: 20px;
   margin-top: 10px;
   color: #68727D;
+  font-size: 14px;
 }
 
 </style>
