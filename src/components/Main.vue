@@ -1,5 +1,10 @@
 <template>
-  <navigation-bar></navigation-bar>
+  <div>
+    <navigation-bar></navigation-bar>
+    <div class="content-container">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script lang="babel">
@@ -20,4 +25,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content-container {
+}
 </style>
