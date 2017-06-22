@@ -1,5 +1,8 @@
 <template>
-  <item-filter></item-filter>
+  <div>
+    <item-filter style="margin-left: 200px;"></item-filter>
+    <item-filter style="margin-left: 200px;"></item-filter>
+  </div>
 </template>
 
 <script lang="babel">
