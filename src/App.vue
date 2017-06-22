@@ -7,12 +7,6 @@
 <script>
 export default {
   name: 'app',
-  beforeCreate() {
-    const adminId = sessionStorage.getItem('adminId')
-    if (!adminId) {
-      console()
-    }
-  },
 }
 </script>
 

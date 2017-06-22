@@ -7,7 +7,7 @@
         <span class="logo-text">scaling up social impacts with the grassroots</span>
       </div>
       <div class="menu">
-        <el-menu :default-active="home" class="el-menu" mode="horizontal" :router="true">
+        <el-menu default-active="home" class="el-menu" mode="horizontal" :router="true">
           <el-menu-item index="home">首页</el-menu-item>
           <el-submenu index="social">
             <template slot="title">社创前沿</template>
@@ -69,7 +69,6 @@ export default {
   },
   data: function () {
     return {
-      activeIndex: '1',
     }
   },
   computed: {},
