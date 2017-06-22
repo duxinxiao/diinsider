@@ -3,13 +3,13 @@
   <header class="header">
     <div class="container">
       <div class="logo">
-        <img src="../../../assets/logo.png" alt="">
+        <img src="~@/assets/logo.png" alt="">
         <span class="logo-text">scaling up social impacts with the grassroots</span>
       </div>
       <div class="menu">
-        <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal">
-          <el-menu-item index="1">首页</el-menu-item>
-          <el-submenu index="2">
+        <el-menu :default-active="home" class="el-menu" mode="horizontal" :router="true">
+          <el-menu-item index="home">首页</el-menu-item>
+          <el-submenu index="social">
             <template slot="title">社创前沿</template>
             <div class="submenu">
               <submenu-item class="menu-item" title="深度访谈" src="/static/interview.png" to="home"></submenu-item>
@@ -18,7 +18,7 @@
               <submenu-item class="menu-item" title="活动速递" src="/static/authen.png" to=""></submenu-item>
             </div>
           </el-submenu>
-          <el-submenu index="3">
+          <el-submenu index="startup">
             <template slot="title">初创企业</template>
             <div class="submenu">
               <submenu-item class="menu-item" title="寻求报道" subtitle="有机会登上Diinsider首页" src="/static/interview.png" to="interview.png"></submenu-item>
@@ -27,21 +27,21 @@
               <submenu-item class="menu-item" title="申请认证" subtitle="认证后更容易得到投资人青睐" src="/static/authen.png" to=""></submenu-item>
             </div>
           </el-submenu>
-          <el-submenu index="4">
+          <el-submenu index="organization">
             <template slot="title">非营利组织</template>
             <div class="submenu">
               <submenu-item class="menu-item" title="创新咨询 " subtitle="subtitle" src="/static/interview.png" to="home"></submenu-item>
               <submenu-item class="menu-item" title="合作机会" subtitle="subtitle" src="/static/investor.png" to=""></submenu-item>
             </div>
           </el-submenu>
-          <el-submenu index="5">
+          <el-submenu index="investor">
             <template slot="title">影响力投资者</template>
             <div class="submenu">
               <submenu-item class="menu-item" title="项目对接" subtitle="为你找到最合适的项目" src="/static/interview.png" to="home"></submenu-item>
               <submenu-item class="menu-item" title="定制研究" subtitle="市场/项目尽职调查，助力投资决策" src="/static/investor.png" to=""></submenu-item>
             </div>
           </el-submenu>
-          <el-submenu index="6">
+          <el-submenu index="more">
             <template slot="title">更多机构</template>
             <div class="submenu">
               <submenu-item class="menu-item" title="项目对接" subtitle="匹配社会企业/NGO，合作实现双赢" src="/static/interview.png" to="home"></submenu-item>
@@ -99,28 +99,26 @@ export default {
   z-index: 999;
   width: 100%;
   height: 100%;
-  margin: auto;
+  // margin: auto;
   position: relative;
   .logo {
     display: inline-block;
     height: 100%;
     line-height: 60px;
     vertical-align: top;
-    color: #48576a;
-    font-family: element-icons;
-    font-weight: bold;
-    width: 750px;
+    width: 550px;
     .logo-text {
-        font-size: 15px;
-        vertical-align: top;
-        padding: -10px 30px;
-        white-space: nowrap;
+      color: #48576a;
+      font-size: 15px;
+      font-weight: bold;
+      vertical-align: top;
+      padding: -10px 30px;
+      white-space: nowrap;
     }
   }
   .menu {
     display: inline-block;
     height: 100%;
-    width: 1000px;
     line-height: 60px;
     vertical-align: top;
   }

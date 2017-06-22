@@ -20,7 +20,7 @@ export default {
 html {
   font-size: 16px;
   font-family: Helvetica Neue, Helvetica, Roboto, sans-serif, Arial;
-  background: url("/static/background.jpg");
+  /*background: url("/static/background.jpg");*/
   background-repeat: no-repeat;
   background-size: 100%, 100%;
 }
