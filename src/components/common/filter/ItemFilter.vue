@@ -20,17 +20,16 @@
     components: {
       Item,
     },
-    // props: {
-    //   title: String,
-    //   items: Array,
-    // },
+    props: {
+      title: String,
+      items: Array,
+      multiSelect: {
+        type: Boolean,
+        default: true,
+      },
+    },
     data: function () {
       return {
-        title: '行业',
-        items: ['电商', '社交', '硬件', '文娱传媒', '工具', '消费生活', '电商', '社交', '硬件', '文娱传媒', '工具', '消费生活', '电商', '社交', '硬件', '文娱传媒', '工具', '消费生活'],
-        aa: ['电商', '社交', '硬件', '文娱传媒', '工具', '消费生活'],
-        multiSelect: true,
-
         actived: [],
         expanded: false,
       }
@@ -58,6 +57,11 @@
       },
       expand: function () {
         this.expanded = !this.expanded
+      },
+    },
+    watch: {
+      actived: function (newValue, oldValue) {
+        this.$emit('select-change', newValue)
       },
     },
     filters: {
