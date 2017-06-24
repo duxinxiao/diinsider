@@ -4,11 +4,11 @@
     <div class="container">
       <div class="logo">
         <img src="~@/assets/logo.png" alt="">
-        <span class="logo-text">scaling up social impacts with the grassroots</span>
+        <span class="logo-text">grassroots first</span>
       </div>
       <div class="menu">
         <el-menu default-active="home" class="el-menu" mode="horizontal" :router="true">
-          <el-menu-item index="home">首页</el-menu-item>
+          <el-menu-item index="home" route="/">首页</el-menu-item>
           <el-submenu index="social">
             <template slot="title">社创前沿</template>
             <div class="submenu">
@@ -22,29 +22,29 @@
             <template slot="title">初创企业</template>
             <div class="submenu">
               <submenu-item class="menu-item" title="寻求报道" subtitle="有机会登上Diinsider首页" src="/static/interview.png" to="interview.png"></submenu-item>
-              <submenu-item class="menu-item" title="投资对接" subtitle="为你找到最匹配的投资人" src="/static/investor.png" to=""></submenu-item>
+              <submenu-item class="menu-item" title="投资对接" subtitle="为你找到最匹配的投资人" src="/static/investor.png" to="investor"></submenu-item>
               <submenu-item class="menu-item" title="解决方案" subtitle="完善你的社会影响力解决方案" src="/static/solution.png" to=""></submenu-item>
-              <submenu-item class="menu-item" title="申请认证" subtitle="认证后更容易得到投资人青睐" src="/static/authen.png" to=""></submenu-item>
+              <submenu-item class="menu-item" title="申请认证" subtitle="认证后更容易得到投资人青睐" src="/static/authen.png" to="registry"></submenu-item>
             </div>
           </el-submenu>
           <el-submenu index="organization">
             <template slot="title">非营利组织</template>
             <div class="submenu">
-              <submenu-item class="menu-item" title="创新咨询 " subtitle="subtitle" src="/static/interview.png" to="home"></submenu-item>
-              <submenu-item class="menu-item" title="合作机会" subtitle="subtitle" src="/static/investor.png" to=""></submenu-item>
+              <submenu-item class="menu-item" title="创新咨询" subtitle="subtitle" src="/static/interview.png" to="home"></submenu-item>
+              <submenu-item class="menu-item" title="合作机会" subtitle="subtitle" src="/static/investor.png" to="institution"></submenu-item>
             </div>
           </el-submenu>
           <el-submenu index="investor">
             <template slot="title">影响力投资者</template>
             <div class="submenu">
-              <submenu-item class="menu-item" title="项目对接" subtitle="为你找到最合适的项目" src="/static/interview.png" to="home"></submenu-item>
+              <submenu-item class="menu-item" title="项目对接" subtitle="为你找到最合适的项目" src="/static/interview.png" to="startup"></submenu-item>
               <submenu-item class="menu-item" title="定制研究" subtitle="市场/项目尽职调查，助力投资决策" src="/static/investor.png" to=""></submenu-item>
             </div>
           </el-submenu>
-          <el-submenu index="more">
+          <el-submenu index="institution">
             <template slot="title">更多机构</template>
             <div class="submenu">
-              <submenu-item class="menu-item" title="项目对接" subtitle="匹配社会企业/NGO，合作实现双赢" src="/static/interview.png" to="home"></submenu-item>
+              <submenu-item class="menu-item" title="项目对接" subtitle="匹配社会企业/NGO，合作实现双赢" src="/static/interview.png" to="ngo"></submenu-item>
               <submenu-item class="menu-item" title="定制研究" subtitle="关于社会创新解决发展问题的研究" src="/static/investor.png" to=""></submenu-item>
             </div>
           </el-submenu>
@@ -82,6 +82,7 @@ export default {
   display: block;
   height: 60px;
   width: 100%;
+  min-width: 1250px;
   border-bottom: 2px solid #EEE;
   .header {
     width: 100%;
@@ -105,7 +106,7 @@ export default {
     height: 100%;
     line-height: 60px;
     vertical-align: top;
-    width: 550px;
+    width: 30%;
     .logo-text {
       color: #48576a;
       font-size: 15px;
@@ -117,6 +118,7 @@ export default {
   }
   .menu {
     display: inline-block;
+    width: 55%;
     height: 100%;
     line-height: 60px;
     vertical-align: top;
@@ -124,6 +126,7 @@ export default {
   .login {
     display: inline-block;
     height: 100%;
+    width: 10%;
     line-height: 60px;
     vertical-align: top;
     float: right;

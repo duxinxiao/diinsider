@@ -1,6 +1,6 @@
 <template>
   <div class="filter-container">
-    <span class="title">行业</span>
+    <span class="title">{{ title }}</span>
     <span class="first-item">
       <item :closable="false" :active="actived.length === 0">不限</item>
     </span>
@@ -71,11 +71,16 @@
 
 <style lang="scss" scoped>
 .filter-container {
+  background: white;
+  width: 90%;
+  min-width: 1125px;
+  margin-top: 100px;
   padding: 1rem 0;
   user-select: none;
   .all-select {
     vertical-align: top;
     display: inline-block;
+    width: 70%;
     max-width: 900px;
     border-bottom: 1px dashed #DDD;
     .item-container {
@@ -90,6 +95,8 @@
   }
   .title {
     font-size: 14px;
+    padding: 25px;
+    min-width: 200px;
   }
   .expand-btn {
     display: inline-block;
