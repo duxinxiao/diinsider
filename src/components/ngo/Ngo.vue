@@ -50,16 +50,12 @@
 
 <style lang="scss" scoped>
 .container {
-  width: 100%;
-  min-width: 1250px;
   background: #DAE5EC;
   height: 100%;
   min-height: 1000px;
+  padding: 0 50px;
   .header {
     padding-top: 10px;
-  }
-  .filter {
-    margin: 0 4rem;
   }
 }
 

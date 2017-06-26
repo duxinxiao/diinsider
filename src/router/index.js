@@ -7,6 +7,7 @@ import Startup from '@/components/startup/Startup'
 import Ngo from '@/components/ngo/Ngo'
 import Investor from '@/components/investor/Investor'
 import Institution from '@/components/institution/Institution'
+import Home from '@/components/home/Home'
 
 Vue.use(Router)
 
@@ -17,6 +18,10 @@ export default new Router({
       name: 'Main',
       component: Main,
       children: [{
+        path: '',
+        name: 'Home',
+        component: Home,
+      }, {
         path: 'login',
         name: 'Login',
         component: Login,

@@ -1,50 +1,42 @@
 <template>
-  <div class="container">
-    <item-filter
-      class="filter"
-      title="行业"
-      :items="['电商', '社交', '硬件', '文娱传媒', '工具', '消费生活', '电商', '社交', '硬件', '文娱传媒', '工具', '消费生活', '电商', '社交', '硬件', '文娱传媒', '工具', '消费生活']"
-      @select-change="changeHandler"
-    ></item-filter>
-    <item-filter
-      class="filter"
-      title="行业"
-      :items="['电商', '社交', '硬件', '文娱传媒', '工具', '消费生活', '电商', '社交', '硬件', '文娱传媒', '工具', '消费生活', '电商', '社交', '硬件', '文娱传媒', '工具', '消费生活']"
-      @select-change="changeHandler"
-    ></item-filter>
-    <search-result></search-result>
+  <div style="width: 100%; min-width: 1250px">
+    <div style="height: 400px">
+      <hover></hover>
+      <search></search>
+    </div>
+    <introduction></introduction>
+    <program></program>
+    <div class="member"></div>
+    <div class="team"></div>
+    <div class="seen"></div>
+    <div class="contact"></div>
   </div>
 </template>
 
 <script lang="babel">
-  import ItemFilter from '@/components/common/filter/ItemFilter'
-  import SearchResult from '@/components/common/SearchResult/SearchResult'
+import Hover from '@/components/hover/Hover'
+import Introduction from '@/components/intro/Introduction'
+import Program from '@/components/intro/Program'
+import Search from '@/components/common/search/Search'
 
-  export default {
-    components: {
-      ItemFilter,
-      SearchResult,
-    },
-    data: function () {
-      return {}
-    },
-    computed: {
-    },
-    methods: {
-      changeHandler: function (val) {
-        console.log(val)
-      },
-    },
-    filters: {
-    },
-  }
+export default {
+  components: {
+    Hover,
+    Search,
+    Introduction,
+    Program,
+  },
+  data: function () {
+    return {
+    }
+  },
+  computed: {},
+  methods: {},
+  filters: {},
+}
 </script>
 
 <style lang="scss" scoped>
-.container {
-  .filter {
-    margin: 0 4rem;
-  }
+.content-container {
 }
-
 </style>

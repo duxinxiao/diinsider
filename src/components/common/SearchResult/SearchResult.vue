@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="searchResult">
     <el-table :data="tableData" class="table">
       <el-table-column label="机构" min-width="55%">
         <template scope="org">
@@ -33,11 +33,8 @@
 </template>
 
 <script lang="babel">
-  import Cell from './Cell'
-
   export default {
     components: {
-      Cell,
     },
     data: function () {
       return {
@@ -86,10 +83,7 @@
 </script>
 
 <style lang="scss" scoped>
-.container {
-  margin: 0 4rem;
-  width: 90%;
-  min-width: 1125px;
+.searchResult {
   height: 100%;
   margin-top: 15px;
   .table {

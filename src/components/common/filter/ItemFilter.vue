@@ -72,10 +72,7 @@
 <style lang="scss" scoped>
 .filter-container {
   background: white;
-  width: 90%;
-  min-width: 1125px;
-  margin-top: 100px;
-  padding: 1rem 0;
+  padding: 1rem 0 0 3rem;
   user-select: none;
   .all-select {
     vertical-align: top;
