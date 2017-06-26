@@ -40,17 +40,16 @@
 </script>
 <style lang="scss" scoped>
   .search {
-    float: left;
-    background: white;
+    display: inline-block;
     width: 30%;
     min-width: 375px;
-    height: 400px;
+    height: 600px;
     .input {
       padding: 50px 50px 0 50px;
     }
     .img {
       width: 100%;
-      height: 200px;
+      height: 400px;
     }
   }
 

@@ -8,6 +8,7 @@ import Ngo from '@/components/ngo/Ngo'
 import Investor from '@/components/investor/Investor'
 import Institution from '@/components/institution/Institution'
 import Home from '@/components/home/Home'
+import News from '@/components/news/News'
 
 Vue.use(Router)
 
@@ -45,6 +46,10 @@ export default new Router({
         path: 'institution',
         name: 'Institution',
         component: Institution,
+      }, {
+        path: 'news',
+        name: 'News',
+        component: News,
       }],
     },
   ],

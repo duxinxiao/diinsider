@@ -1,7 +1,7 @@
 <template>
   <div id="hover" class="block">
-    <el-carousel trigger="click">
-			<el-carousel-item v-for="item in items" :key="item">
+    <el-carousel style="height: 500px;" trigger="click">
+			<el-carousel-item style="height: 500px" v-for="item in items" :key="item">
         <a v-bind:href="item.link">
           <div style="width: 100%; height: 100%;"></div>
         </a>
@@ -36,11 +36,10 @@
 </script>
 <style lang="scss" scoped>
   .block {
-    float: left;
-    background: white;
+    display: inline-block;
     width: 60%;
     min-width: 750px;
-    height: 350px;
+    height: 550px;
     padding: 50px 50px 0px 50px;
   }
 

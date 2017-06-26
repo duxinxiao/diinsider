@@ -12,10 +12,10 @@
           <el-submenu index="social">
             <template slot="title">社创前沿</template>
             <div class="submenu">
-              <submenu-item class="menu-item" title="深度访谈" src="/static/interview.png" to="home"></submenu-item>
-              <submenu-item class="menu-item" title="案例分析" src="/static/investor.png" to=""></submenu-item>
-              <submenu-item class="menu-item" title="机遇动态" src="/static/solution.png" to=""></submenu-item>
-              <submenu-item class="menu-item" title="活动速递" src="/static/authen.png" to=""></submenu-item>
+              <submenu-item class="menu-item" title="深度访谈" src="/static/interview.png" to="/news"></submenu-item>
+              <submenu-item class="menu-item" title="案例分析" src="/static/investor.png" to="/news"></submenu-item>
+              <submenu-item class="menu-item" title="机遇动态" src="/static/solution.png" to="/news"></submenu-item>
+              <submenu-item class="menu-item" title="活动速递" src="/static/authen.png" to="/news"></submenu-item>
             </div>
           </el-submenu>
           <el-submenu index="startup">

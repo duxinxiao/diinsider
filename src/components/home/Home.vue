@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%; min-width: 1250px">
-    <div style="height: 400px">
+    <div style="height: 600px">
       <hover></hover>
       <search></search>
     </div>

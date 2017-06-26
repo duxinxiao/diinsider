@@ -530,7 +530,7 @@
         fundSourceInput: false,
         sourceInput: false,
         needsInput: false,
-        step: 9,
+        step: 1,
         fileList: [],
         ruleForm: {
           email: '',
@@ -693,7 +693,7 @@
         this.step = this.step === 2 ? 1 : 2
       },
       skip(formName) {
-        this.step = 4
+        this.step = 7
       },
       resetForm(formName) {
         this.$refs[formName].resetFields()
