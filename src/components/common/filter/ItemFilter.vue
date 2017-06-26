@@ -78,11 +78,10 @@
     vertical-align: top;
     display: inline-block;
     width: 70%;
-    max-width: 900px;
     border-bottom: 1px dashed #DDD;
     .item-container {
       display: inline-block;
-      width: 100px;
+      width: 150px;
       margin-bottom: 1rem;
     }
   }
@@ -97,6 +96,8 @@
   }
   .expand-btn {
     display: inline-block;
+    float: right;
+    margin-right: 10%;
     width: 16px;
     height: 16px;
     border: 1px solid #BBB;
