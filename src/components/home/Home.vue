@@ -1,12 +1,9 @@
 <template>
-  <div style="width: 100%; min-width: 1250px">
-    <div style="height: 600px">
-      <hover></hover>
-      <search></search>
-    </div>
+  <div class="home">
+    <hover></hover>
     <introduction></introduction>
     <program></program>
-    <div class="member"></div>
+    <member></member>
     <div class="team"></div>
     <div class="seen"></div>
     <div class="contact"></div>
@@ -14,17 +11,17 @@
 </template>
 
 <script lang="babel">
-import Hover from '@/components/hover/Hover'
+import Hover from '@/components/home/Hover'
 import Introduction from '@/components/intro/Introduction'
 import Program from '@/components/intro/Program'
-import Search from '@/components/common/search/Search'
+import Member from '@/components/intro/Member'
 
 export default {
   components: {
     Hover,
-    Search,
     Introduction,
     Program,
+    Member,
   },
   data: function () {
     return {
@@ -37,6 +34,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-container {
+.home {
+  height: 100%;
 }
 </style>

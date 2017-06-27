@@ -1,76 +1,101 @@
 <template>
-<div class="header-wrapper">
-  <header class="header">
-    <div class="container">
-      <div class="logo">
-        <img src="~@/assets/logo.png" alt="">
-        <span class="logo-text">grassroots first</span>
-      </div>
-      <div class="menu">
-        <el-menu default-active="home" class="el-menu" mode="horizontal" :router="true">
-          <el-menu-item index="home" route="/">首页</el-menu-item>
-          <el-submenu index="social">
-            <template slot="title">社创前沿</template>
-            <div class="submenu">
-              <submenu-item class="menu-item" title="深度访谈" src="/static/interview.png" to="/news"></submenu-item>
-              <submenu-item class="menu-item" title="案例分析" src="/static/investor.png" to="/news"></submenu-item>
-              <submenu-item class="menu-item" title="机遇动态" src="/static/solution.png" to="/news"></submenu-item>
-              <submenu-item class="menu-item" title="活动速递" src="/static/authen.png" to="/news"></submenu-item>
-            </div>
-          </el-submenu>
-          <el-submenu index="startup">
-            <template slot="title">初创企业</template>
-            <div class="submenu">
-              <submenu-item-click class="menu-item" title="寻求报道" subtitle="有机会登上Diinsider首页" src="/static/interview.png" msg="1"></submenu-item-click>
-              <submenu-item class="menu-item" title="投资对接" subtitle="为你找到最匹配的投资人" src="/static/investor.png" to="investor"></submenu-item>
-              <submenu-item class="menu-item" title="解决方案" subtitle="完善你的社会影响力解决方案" src="/static/solution.png" to=""></submenu-item>
-              <submenu-item class="menu-item" title="申请认证" subtitle="认证后更容易得到投资人青睐" src="/static/authen.png" to="registry"></submenu-item>
-            </div>
-          </el-submenu>
-          <el-submenu index="organization">
-            <template slot="title">非营利组织</template>
-            <div class="submenu">
-              <submenu-item-click class="menu-item" title="创新咨询" subtitle="subtitle" src="/static/interview.png" msg="2"></submenu-item-click>
-              <submenu-item class="menu-item" title="合作机会" subtitle="subtitle" src="/static/investor.png" to="institution"></submenu-item>
-            </div>
-          </el-submenu>
-          <el-submenu index="investor">
-            <template slot="title">影响力投资者</template>
-            <div class="submenu">
-              <submenu-item class="menu-item" title="项目对接" subtitle="为你找到最合适的项目" src="/static/interview.png" to="startup"></submenu-item>
-              <submenu-item-click class="menu-item" title="定制研究" subtitle="市场/项目尽职调查，助力投资决策" src="/static/investor.png" msg="3"></submenu-item-click>
-            </div>
-          </el-submenu>
-          <el-submenu index="institution">
-            <template slot="title">更多机构</template>
-            <div class="submenu">
-              <submenu-item class="menu-item" title="项目对接" subtitle="匹配社会企业/NGO，合作实现双赢" src="/static/interview.png" to="ngo"></submenu-item>
-              <submenu-item-click class="menu-item" title="定制研究" subtitle="关于社会创新解决发展问题的研究" src="/static/investor.png" msg="4"></submenu-item-click>
-            </div>
-          </el-submenu>
-        </el-menu>
-      </div>
-      <div class="login">
-        <router-link to="login">登录</router-link>
-        /
-        <router-link to="register">注册</router-link>
-      </div>
-    </div>
-  </header>
-</div>
+  <div class="bar">
+    <el-menu default-active="1" class="menus" mode="horizontal" :router="true">
+      <el-menu-item class="menu-home" index="1" route="/">首页</el-menu-item>
+      <el-submenu class="menu" v-for="item in items" :index="item.key">
+        <template slot="title">{{ item.title }}</template>
+        <div class="submenu">
+          <submenu-item v-for="subItem in item.value" class="menu-item" :title="subItem.title" :subtitle="subItem.subtitle" :src="subItem.src" :to="subItem.to"></submenu-item>
+        </div>
+      </el-submenu>
+      <el-menu-item class="menu-home" index="5" route="/">寻求合作</el-menu-item>
+      <el-input class="search"
+        placeholder="输入关键字搜索"
+        icon="search"
+        v-model="input2"
+        :on-icon-click="handleIconClick">
+      </el-input>
+    </el-menu>
+    
+  </div>
 </template>
-
 <script lang="babel">
 import SubmenuItem from './MenuItem'
-import SubmenuItemClick from './MenuItemClick'
 
 export default {
   components: {
     SubmenuItem,
-    SubmenuItemClick,
   },
   data: function () {
     return {
+      items: [{
+        key: 2,
+        title: '我有项目',
+        value: [{
+          title: '寻求报道',
+          subtitle: '有机会登上Diinsider首页',
+          src: '/static/interview.png',
+          to: '',
+        }, {
+          title: '投资对接',
+          subtitle: '为你找到最匹配的投资人',
+          src: '/static/investor.png',
+          to: 'investor',
+        }, {
+          title: '战略咨询',
+          subtitle: '完善商业模式、寻找人才、数据分析等',
+          src: '/static/solution.png',
+          to: '',
+        }, {
+          title: '申请认证',
+          subtitle: '认证后更容易得到投资人青睐',
+          src: '/static/authen.png',
+          to: 'register',
+        }],
+      }, {
+        key: 3,
+        title: '我要投资',
+        value: [{
+          title: '项目投资',
+          subtitle: '为你找到最合适的项目',
+          src: '/static/interview.png',
+          to: '',
+        }, {
+          title: '投资Diiinsider',
+          subtitle: '我们帮您找到最合适的项目',
+          src: '/static/interview.png',
+          to: 'investor',
+        }, {
+          title: '定制研究',
+          subtitle: '项目尽职调查，助力投资决策',
+          src: '/static/solution.png',
+          to: '',
+        }],
+      }, {
+        key: 4,
+        title: '只是看看',
+        value: [{
+          title: '背景知识',
+          subtitle: '草根创新、国际发展与影响力投资',
+          src: '/static/interview.png',
+          to: 'news',
+        }, {
+          title: '创变杂志',
+          subtitle: '将草根将给世界听',
+          src: '/static/interview.png',
+          to: 'news',
+        }, {
+          title: '机遇动态',
+          subtitle: '社会创新与新兴市场机遇动态',
+          src: '/static/solution.png',
+          to: 'news',
+        }, {
+          title: '活动速递',
+          subtitle: '了解最新的活动信息',
+          src: '/static/solution.png',
+          to: 'news',
+        }],
+      }],
     }
   },
   computed: {},
@@ -78,84 +103,48 @@ export default {
   filters: {},
 }
 </script>
-
 <style lang="scss" scoped>
-.header-wrapper {
-  display: block;
-  height: 60px;
-  width: 100%;
-  min-width: 1250px;
-  border-bottom: 2px solid #EEE;
-  .header {
-    width: 100%;
-    height: 60px;
-    background-color: white;
-    color: #333;
-    position: relative;
-    left: 0;
-    top: 0;
-    right: 0;
-  }
-}
-.container {
+.bar {
+  display: inline-block;
   z-index: 999;
-  width: 100%;
-  height: 100%;
-  // margin: auto;
-  position: relative;
-  .logo {
-    display: inline-block;
-    height: 100%;
-    line-height: 60px;
-    vertical-align: top;
-    width: 30%;
-    .logo-text {
-      color: #48576a;
-      font-size: 15px;
-      font-weight: bold;
-      vertical-align: top;
-      padding: -10px 30px;
-      white-space: nowrap;
+  width: 60%;
+  .menus {
+    .menu-home {
+      text-align: center;
+      width: 12%;
+    }
+    .menu {
+      width: 17%;
+      text-align: center;
+      display: inline-block;
+      position: static;
+      .submenu {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        background: rgba(255,255,255,0.8);
+        text-align: center;
+        .menu-item {
+          display: inline-block;
+          margin: 1rem 0;
+        }
+      }
     }
   }
-  .menu {
-    display: inline-block;
-    width: 55%;
-    height: 100%;
-    line-height: 60px;
-    vertical-align: top;
-  }
-  .login {
-    display: inline-block;
-    height: 100%;
-    width: 10%;
-    line-height: 60px;
-    vertical-align: top;
+  .search {
     float: right;
-    margin-right: 30px;
-    font-size: 14px;
-    color: #48576a;
-    & a {
-      color: #48576a;
-    }
+    width: 150px;
+    margin-top: 12px;
   }
-}
-.submenu {
-  text-align: center;
-  .menu-item {
-    margin: 1rem 0;
-  };
 }
 </style>
-
-<style lang="scss">
-.header-wrapper {
-  .el-menu {
-    background-color: white;
-    position: static;
-  }
-  .el-submenu {
-    position: static;
-  }
+<style>
+.el-menu-item,
+.el-submenu__title {
+    font-size: 16px;
+    color: white;
+}
+.el-menu {
+    background-color: transparent;
 }
 </style>

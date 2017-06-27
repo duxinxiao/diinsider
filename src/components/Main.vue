@@ -1,24 +1,20 @@
 <template>
-  <div style="width: 100%; min-width: 1250px">
-    <navigation-bar></navigation-bar>
-    <div class="content-container">
+  <div class="main">
+    <Header></Header>
+    <div class="container">
       <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script lang="babel">
-import NavigationBar from '@/components/common/navigation-bar/NavigationBar'
-import Hover from '@/components/hover/Hover'
 import Introduction from '@/components/intro/Introduction'
 import Program from '@/components/intro/Program'
-import Search from '@/components/common/search/Search'
+import Header from '@/components/common/navigation-bar/Header'
 
 export default {
   components: {
-    NavigationBar,
-    Hover,
-    Search,
+    Header,
     Introduction,
     Program,
   },
@@ -33,6 +29,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-container {
+.main {
+  width: 100%;
+  height: 100%;
+  .container {
+    position: absolute;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
 }
 </style>

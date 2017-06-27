@@ -494,6 +494,9 @@
 <script lang="babel">
 
   export default {
+    props: {
+      index: String,
+    },
     data: function () {
       const checkPassword = (rule, value, callback) => {
         if (value !== this.ruleForm.password) {
@@ -530,7 +533,7 @@
         fundSourceInput: false,
         sourceInput: false,
         needsInput: false,
-        step: 1,
+        step: 3,
         fileList: [],
         ruleForm: {
           email: '',

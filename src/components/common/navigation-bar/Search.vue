@@ -1,5 +1,5 @@
 <template>
-  <div id="search" class="search">
+  <div class="search">
     <div class="input">
       <el-input
         placeholder="输入关键字搜索感兴趣的内容"
@@ -7,11 +7,6 @@
         v-model="input2"
         :on-icon-click="handleIconClick">
       </el-input>
-    </div>
-    <div style="padding: 50px">
-        <a href="http://www.changemag-diinsider.com/">
-          <img class="img" src="/static/change.png"></img>
-        </a>
     </div>
   </div>
 </template>

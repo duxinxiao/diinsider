@@ -9,6 +9,7 @@ import Investor from '@/components/investor/Investor'
 import Institution from '@/components/institution/Institution'
 import Home from '@/components/home/Home'
 import News from '@/components/news/News'
+import Detail from '@/components/investor/Detail'
 
 Vue.use(Router)
 
@@ -49,7 +50,14 @@ export default new Router({
       }, {
         path: 'news',
         name: 'News',
+        query: {
+          index: 2,
+        },
         component: News,
+      }, {
+        path: 'detail',
+        name: 'Detail',
+        component: Detail,
       }],
     },
   ],

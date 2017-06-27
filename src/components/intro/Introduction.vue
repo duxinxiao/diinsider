@@ -14,11 +14,9 @@
 
 <style lang="scss" scoped>
 	.introduction {
-		background: #C0C4C7;
-		padding-top: 50px;
-		height: 300px;
+		background: rgba(255,255,255,0.5);
+		padding: 70px 0 90px 0;
 		width: 100%;
-		min-width: 1250px;
 		.title {
 			font-size: 25px;
 			text-align: center;
@@ -26,9 +24,9 @@
 		}
 		.text {
 			width: 70%;
-			min-width: 875px;
 			margin: 0 auto;
 			font-size: 20px;
+			font-family: 'Times New Roman';
 			padding-top: 35px;
 			display: block;
 		}

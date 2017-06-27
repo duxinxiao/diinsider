@@ -97,7 +97,7 @@
   .expand-btn {
     display: inline-block;
     float: right;
-    margin-right: 10%;
+    margin-right: 5%;
     width: 16px;
     height: 16px;
     border: 1px solid #BBB;

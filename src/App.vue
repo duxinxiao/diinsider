@@ -12,14 +12,19 @@ export default {
 
 <style>
 html {
-  font-size: 16px;
   font-family: Helvetica Neue, Helvetica, Roboto, sans-serif, Arial;
-  /*background: url("/static/background.jpg");*/
-  background-repeat: no-repeat;
-  background-size: 100%, 100%;
 }
 a {
   text-decoration: none;
   color: inherit;
+}
+#app {
+  background: url('/static/background.jpg');
+  width: 100%;
+  min-width: 1250px;
+  height: 100%;
+  position: absolute;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 </style>

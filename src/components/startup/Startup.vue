@@ -20,7 +20,7 @@
       @select-change="changeHandler"
     ></item-filter>
     </div>
-    <search-result></search-result>
+    <search-result index="1"></search-result>
   </div>
 </template>
 
