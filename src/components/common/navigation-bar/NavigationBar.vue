@@ -9,14 +9,10 @@
         </div>
       </el-submenu>
       <el-menu-item class="menu-home" index="5" route="/">寻求合作</el-menu-item>
-      <el-input class="search"
-        placeholder="输入关键字搜索"
-        icon="search"
-        v-model="input2"
-        :on-icon-click="handleIconClick">
+      <el-input class="search" placeholder="输入关键字搜索" icon="search" v-model="input2" :on-icon-click="handleIconClick">
       </el-input>
     </el-menu>
-    
+  
   </div>
 </template>
 <script lang="babel">
@@ -107,14 +103,15 @@ export default {
 .bar {
   display: inline-block;
   z-index: 999;
-  width: 60%;
+  width: 65%;
+  height: 100%;
   .menus {
     .menu-home {
       text-align: center;
       width: 12%;
     }
     .menu {
-      width: 17%;
+      width: 16%;
       text-align: center;
       display: inline-block;
       position: static;
@@ -122,7 +119,7 @@ export default {
         position: absolute;
         width: 100%;
         left: 0;
-        background: rgba(255,255,255,0.8);
+        background: rgba(255, 255, 255, 0.8);
         text-align: center;
         .menu-item {
           display: inline-block;
@@ -133,7 +130,7 @@ export default {
   }
   .search {
     float: right;
-    width: 150px;
+    width: 200px;
     margin-top: 12px;
   }
 }
@@ -141,10 +138,13 @@ export default {
 <style>
 .el-menu-item,
 .el-submenu__title {
-    font-size: 16px;
-    color: white;
+  font-size: 16px;
+  color: white;
+  padding-bottom: 20px;
 }
+
 .el-menu {
-    background-color: transparent;
+  background-color: transparent;
+  padding-bottom: 20px;
 }
 </style>

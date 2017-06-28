@@ -14,7 +14,7 @@
 
 <style lang="scss" scoped>
 	.introduction {
-		background: rgba(255,255,255,0.5);
+		background: rgba(255,255,255,0.3);
 		padding: 70px 0 90px 0;
 		width: 100%;
 		.title {

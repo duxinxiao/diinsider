@@ -23,13 +23,13 @@
         items: [{
           name: '杂志',
           link: 'http://www.baidu.com/',
-          src: '/static/test1.png',
-          desc: '图灵机器人与国资委达成合作',
+          src: '/static/castle1.png',
+          desc: '创变杂志已发行数十个国家，星星之火，可以燎原',
         }, {
           name: '地图',
           link: 'http://www.changemag-diinsider.com/',
-          src: '/static/test4.png',
-          desc: 'Headstart面临的又一个问题是同领域的竞争',
+          src: '/static/castle2.png',
+          desc: 'GRASSROOTS FIRST',
         }, {
           name: '地图',
           link: 'http://www.changemag-diinsider.com/',
@@ -64,10 +64,10 @@
             position: absolute;
             width: 100%;
             text-align: center;
-            height: 80px;
+            height: 60px;
             line-height: 60px;
             bottom: 0px;
-            font-size: 25px;
+            font-size: 20px;
             background: black;
             color: white;
             opacity: 0.6;

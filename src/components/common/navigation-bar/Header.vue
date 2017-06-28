@@ -31,19 +31,20 @@ export default {
 .header {
   display: block;
   z-index: 999;
-  height: 6%;
-  max-height: 80px;
+  height: 10%;
+  max-height: 800px;
   width: 100%;
-  padding: 1% 0;
   .logo {
     float: left;
     height: 100%;
     width: 25%;
     .logo-img {
+      vertical-align: middle;
       width: 45%;
       height: 100%;
     }
     .logo-text {
+      vertical-align: middle;
       display: inline-block;
       color: white;
       font-size: 15px;
@@ -54,7 +55,7 @@ export default {
   .login {
     float: right;
     height: 80%;
-    width: 8%;
+    width: 7%;
     text-align: right;
     padding-right: 2%;
     padding-top: 2%;

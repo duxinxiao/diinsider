@@ -48,18 +48,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .program {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0);
   padding-top: 2%;
   height: 90%;
   width: 100%;
   font-family: 'Times New Roman';
   .title {
-    color: #DBD6D8;
+    color: white;
     font-size: 30px;
     text-align: center;
   }
   .text {
-    color: #DBD6D8;
+    color: white;
     text-align: center;
     margin-top: -12px;
     font-size: 20px;
@@ -99,7 +99,8 @@ export default {
 </style>
 <style>
 .el-card {
-  overflow-y: scroll;
+  background: rgba(255,255,255,0.5);
+  overflow-y: auto;
   height: 100%;
 }
 .el-card__body {
