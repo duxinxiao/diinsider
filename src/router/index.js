@@ -50,9 +50,6 @@ export default new Router({
       }, {
         path: 'news',
         name: 'News',
-        query: {
-          index: 2,
-        },
         component: News,
       }, {
         path: 'detail',

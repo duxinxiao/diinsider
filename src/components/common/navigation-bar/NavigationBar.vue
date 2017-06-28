@@ -5,7 +5,7 @@
       <el-submenu class="menu" v-for="item in items" :index="item.key">
         <template slot="title">{{ item.title }}</template>
         <div class="submenu">
-          <submenu-item v-for="subItem in item.value" class="menu-item" :title="subItem.title" :subtitle="subItem.subtitle" :src="subItem.src" :to="subItem.to"></submenu-item>
+          <submenu-item v-for="subItem in item.value" class="menu-item" :title="subItem.title" :subtitle="subItem.subtitle" :src="subItem.src" :to="subItem.to" :param="subItem.param"></submenu-item>
         </div>
       </el-submenu>
       <el-menu-item class="menu-home" index="5" route="/">寻求合作</el-menu-item>
@@ -79,21 +79,33 @@ export default {
           subtitle: '草根创新、国际发展与影响力投资',
           src: '/static/interview.png',
           to: 'news',
+          param: {
+            index: 1,
+          },
         }, {
           title: '创变杂志',
           subtitle: '将草根将给世界听',
           src: '/static/interview.png',
           to: 'news',
+          param: {
+            index: 2,
+          },
         }, {
           title: '机遇动态',
           subtitle: '社会创新与新兴市场机遇动态',
           src: '/static/solution.png',
           to: 'news',
+          param: {
+            index: 3,
+          },
         }, {
           title: '活动速递',
           subtitle: '了解最新的活动信息',
           src: '/static/solution.png',
           to: 'news',
+          param: {
+            index: 4,
+          },
         }],
       }],
     }

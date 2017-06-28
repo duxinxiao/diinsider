@@ -1,6 +1,6 @@
 <template>
   <div class="sub-menu-item">
-    <router-link v-if="this.to !== '' ":to="to" :query="params">
+    <router-link v-if="this.to !== '' " :to="{ path: to, query: param }">
       <img  v-bind:src="src" class="icon">
       <div class="title">{{ title }}</div>
       <div class="subtitle">{{ subtitle }}</div>
@@ -21,6 +21,7 @@
       title: String,
       subtitle: String,
       to: String,
+      param: Object,
     },
     data: function () {
       return {}
