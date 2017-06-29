@@ -37,7 +37,7 @@
     computed: {
       itemsToShow: function () {
         if (!this.expanded) {
-          return this.items.slice(0, 9)
+          return this.items.slice(0, 5)
         }
         return this.items
       },
@@ -71,17 +71,18 @@
 
 <style lang="scss" scoped>
 .filter-container {
-  background: white;
-  padding: 1rem 0 0 3rem;
+  background: transparent;
+  padding: 2rem 0 0 3rem;
   user-select: none;
   .all-select {
+    font-size: calc(0.5em + 0.5vw);
     vertical-align: top;
     display: inline-block;
     width: 70%;
     border-bottom: 1px dashed #DDD;
     .item-container {
       display: inline-block;
-      width: 150px;
+      width: 20%;
       margin-bottom: 1rem;
     }
   }
@@ -90,7 +91,7 @@
     margin-right: 20px;
   }
   .title {
-    font-size: 14px;
+    font-size: calc(0.8em + 0.3vw);
     padding: 25px;
     min-width: 200px;
   }

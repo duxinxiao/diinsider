@@ -9,14 +9,12 @@
 
 <script lang="babel">
 import Introduction from '@/components/intro/Introduction'
-import Program from '@/components/intro/Program'
 import Header from '@/components/common/navigation-bar/Header'
 
 export default {
   components: {
     Header,
     Introduction,
-    Program,
   },
   data: function () {
     return {
@@ -34,6 +32,7 @@ export default {
   height: 100%;
   .container {
     position: absolute;
+    width: 100%;
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;

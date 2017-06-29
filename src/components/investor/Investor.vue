@@ -50,12 +50,14 @@
 
 <style lang="scss" scoped>
 .container {
-  background: #DAE5EC;
+  width: 100%;
   height: 100%;
-  min-height: 1000px;
-  padding: 0 50px;
   .header {
-    padding-top: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    width: 90%;
+    height: 25%;
+    margin: 0 auto;
+    margin-top: 1%;
   }
 }
 

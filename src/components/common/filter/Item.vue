@@ -37,7 +37,6 @@
 .item {
   cursor: pointer;
   padding: 4px 12px;
-  font-size: 14px;
   position: relative;
   user-select: none;
   &.active {

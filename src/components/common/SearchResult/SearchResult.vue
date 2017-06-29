@@ -110,7 +110,10 @@
 
 <style lang="scss" scoped>
 .searchResult {
+  background: rgba(0, 0, 255, 0.2);
+  width: 90%;
   height: 100%;
+  margin: 0 auto;
   margin-top: 15px;
   .table {
     .logo {
@@ -130,4 +133,10 @@
 
 }
 
+</style>
+<style>
+.el-table,
+.el-table-column {
+  background: rgba(0, 0, 255, 0.2);
+}
 </style>
