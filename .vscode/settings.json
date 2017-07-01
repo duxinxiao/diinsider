@@ -1,0 +1,20 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "html",
+    "vue"
+  ],
+  "editor.formatOnSave": true,
+  "workbench.colorTheme": "One Dark Pro",
+  "editor.tabSize": 2,
+  "prettier.singleQuote": true,
+  "eslint.nodePath": "~/Documents/diinsier/test/unit/.eslintrc",
+  "eslint.autoFixOnSave": true,
+  "editor.tabCompletion": true,
+  "css.lint.unknownProperties": "error",
+  "css.lint.propertyIgnoredDueToDisplay": "error",
+  "scss.lint.duplicateProperties": "warning",
+  "scss.lint.propertyIgnoredDueToDisplay": "error",
+  "prettier.parser": "babylon",
+  "flow.useNPMPackagedFlow": true
+}

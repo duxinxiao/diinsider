@@ -20,6 +20,8 @@ a {
 }
 #app {
   background: url('/static/background.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   width: 100%;
   min-width: 1250px;
   height: 100%;

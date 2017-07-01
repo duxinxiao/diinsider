@@ -1,12 +1,12 @@
 <template>
   <div class="sub-menu-item">
-    <router-link v-if="this.to !== '' ":to="to" :query="params">
-      <img  v-bind:src="src" class="icon">
+    <router-link v-if="this.to !== '' " :to="{ path: to, query: param }">
+      <img v-bind:src="src" class="icon">
       <div class="title">{{ title }}</div>
       <div class="subtitle">{{ subtitle }}</div>
     </router-link>
     <div v-if="this.to === ''" @click="open(title, title)">
-      <img  v-bind:src="src" class="icon">
+      <img v-bind:src="src" class="icon">
       <div class="title">{{ title }}</div>
       <div class="subtitle">{{ subtitle }}</div>
     </div>
@@ -21,6 +21,7 @@
       title: String,
       subtitle: String,
       to: String,
+      param: Object,
     },
     data: function () {
       return {}
@@ -51,10 +52,10 @@
   vertical-align: top;
   display: inline-block;
   width: 20%;
-  height: 125px;
-  // background-color: red;
+  height: 125px; // background-color: red;
   position: relative;
 }
+
 .icon {
   width: 60px;
   height: 60px;
@@ -62,18 +63,21 @@
   display: block;
   background-color: white;
 }
+
 .title {
   height: 25px;
   line-height: 25px;
   margin-top: 10px;
   font-size: 18px;
+  color: #144282;
+  font-weight: bold;
 }
+
 .subtitle {
   height: 20px;
   line-height: 20px;
   margin-top: 10px;
-  color: #68727D;
+  color: black;
   font-size: 12px;
 }
-
 </style>
