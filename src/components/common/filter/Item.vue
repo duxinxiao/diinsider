@@ -1,7 +1,9 @@
 <template>
   <span class="item" :class="{active: active}">
     <slot></slot>
-    <span v-if="active && closable" class="close" @click.stop="close"><i class="el-icon-close"></i></span>
+    <span v-if="active && closable" class="close" @click.stop="close">
+      <i class="el-icon-close"></i>
+    </span>
   </span>
 </template>
 
@@ -36,13 +38,12 @@
 <style lang="scss" scoped>
 .item {
   cursor: pointer;
-  padding: 4px 12px;
-  font-size: 14px;
+  padding: 4px 8px;
   position: relative;
   user-select: none;
   &.active {
     color: #2868d1;
-    background: rgba(107,162,252,.2);
+    background: rgba(107, 162, 252, .2);
   }
   .close {
     position: absolute;
@@ -53,7 +54,7 @@
     height: 0;
     border-style: solid;
     border-width: 0 14px 14px 0;
-    border-color: transparent rgba(107,162,252,.9) transparent transparent;
+    border-color: transparent rgba(107, 162, 252, .9) transparent transparent;
 
     .el-icon-close {
       position: relative;

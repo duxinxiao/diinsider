@@ -3,13 +3,12 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 import Login from '@/components/login/Login'
 import Register from '@/components/register/Register'
-import Startup from '@/components/startup/Startup'
-import Ngo from '@/components/ngo/Ngo'
-import Investor from '@/components/investor/Investor'
-import Institution from '@/components/institution/Institution'
+import Startup from '@/components/list/Startup'
+import Investor from '@/components/list/Investor'
 import Home from '@/components/home/Home'
 import News from '@/components/news/News'
-import Detail from '@/components/investor/Detail'
+import InvestorDetail from '@/components/list/InvestorDetail'
+import StartupDetail from '@/components/list/StartupDetail'
 
 Vue.use(Router)
 
@@ -36,25 +35,21 @@ export default new Router({
         name: 'Startup',
         component: Startup,
       }, {
-        path: 'ngo',
-        name: 'Ngo',
-        component: Ngo,
-      }, {
         path: 'investor',
         name: 'Investor',
         component: Investor,
-      }, {
-        path: 'institution',
-        name: 'Institution',
-        component: Institution,
       }, {
         path: 'news',
         name: 'News',
         component: News,
       }, {
-        path: 'detail',
-        name: 'Detail',
-        component: Detail,
+        path: 'investorDetail',
+        name: 'InvestorDetail',
+        component: InvestorDetail,
+      }, {
+        path: 'startupDetail',
+        name: 'StartupDetail',
+        component: StartupDetail,
       }],
     },
   ],

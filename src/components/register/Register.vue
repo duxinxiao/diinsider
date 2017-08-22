@@ -1,635 +1,461 @@
 <template>
   <div class="registry">
-    <el-steps :space="200" :active="step" center="true" align-center="true">
-      <el-step title="基础信息" icon="document"></el-step>
-      <el-step title="选择角色" icon="edit"></el-step>
-      <el-step title="申请认证" icon="upload"></el-step>
+    <el-steps class="steps" :space="300" :active="step" :center="true" :align-center="true">
+      <el-step :title="$t('registerForm.basic')" icon="document"></el-step>
+      <el-step :title="$t('registerForm.choose')" icon="edit"></el-step>
+      <el-step :title="$t('registerForm.accreditation')" icon="upload"></el-step>
     </el-steps>
-    <el-form :model="ruleForm" :rules="rules1" v-if="step === 1" ref="ruleForm" label-width="100px" class="form">
-    <el-form-item label="电子邮箱" prop="email">
-      <el-input v-model="ruleForm.email" placeholder="请输入电子邮箱"></el-input>
-    </el-form-item>
-    <el-form-item label="密码" prop="password">
-      <el-input v-model="ruleForm.password" type="password" placeholder="请输入登录密码"></el-input>
-    </el-form-item>
-    <el-form-item label="确认密码" prop="passwordConfirm">
-      <el-input v-model="ruleForm.passwordConfirm" type="password" placeholder="请再输入一遍登录密码"></el-input>
-    </el-form-item>
-    <el-form-item label="">
-      <el-button type="primary" class="button" @click="next('ruleForm')">下一步</el-button>
-    </el-form-item>
+    <el-form :model="formSimple" :rules="rules1" v-if="step === 1" ref="formSimple" label-width="150px" class="form">
+      <el-form-item :label="$t('registerForm.email')" prop="email">
+        <el-input v-model="formSimple.email" :placeholder="$t('registerForm.emailMsg')"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('registerForm.password')" prop="password">
+        <el-input v-model="formSimple.password" type="password" :placeholder="$t('registerForm.passwordMsg')"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('registerForm.confirm')" prop="passwordConfirm">
+        <el-input v-model="formSimple.passwordConfirm" type="password" :placeholder="$t('registerForm.confirmMsg')"></el-input>
+      </el-form-item>
+      <el-form-item label="">
+        <el-button type="primary" class="button" @click="next('formSimple')">{{ $t('registerForm.next') }}</el-button>
+      </el-form-item>
     </el-form>
-    <el-form :model="ruleForm" :rules="rules2" v-if="step === 2" ref="ruleForm" label-width="100px" class="form">
-    <el-form-item label="选择角色" prop="type">
-      <el-radio-group v-model="ruleForm.type" style="display: block;">
-        <el-radio style="height: 50px;" label=1>初创社企  （运用商业手段，实现社会目的）</el-radio>
-      </el-radio-group>
-      <el-radio-group v-model="ruleForm.type" style="display: block">
-        <el-radio style="height: 50px;" label=2>非营利组织   （未成立企业）</el-radio>
-      </el-radio-group>
-      <el-radio-group v-model="ruleForm.type" style="display: block">
-        <el-radio style="height: 50px;" label=3>影响力投资者    （投资社企，并有一定回报率）</el-radio>
-      </el-radio-group>
-      <el-radio-group v-model="ruleForm.type" style="display: block">
-        <el-radio style="height: 50px;" label=4>其他机构</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item>
-      <el-button class="button" style="border: none;color: #279CFF;" @click="skip('ruleForm')">暂时不选择，跳过</el-button>
-    </el-form-item>
-    <el-form-item>
-      <el-p class="button" style="color: #B6B3B4;">选择角色并完成认证可以解锁更多功能哦&nbsp;&nbsp;&nbsp;&nbsp;</el-p>
-    </el-form-item>
-    <el-form-item style="padding-top: 20px">
-      <el-button @click="back('ruleForm')">上一步</el-button>
-      <el-button type="primary" class="button" @click="next('ruleForm')">下一步</el-button>
-    </el-form-item>
+    <el-form :model="formSimple" :rules="rules2" v-if="step === 2" ref="formSimple" class="form2">
+      <el-form-item prop="type">
+        <el-radio-group v-model="formSimple.type" style="display: block;">
+          <el-radio class="role" :label='1'>
+            <img class="roleImg" src="/static/individual.png"></img>
+            <div class="roleDes">{{ $t( 'registerForm.individual') }}</div>
+          </el-radio>
+          <el-radio class="role" :label='3'>
+            <img class="roleImg" src="/static/maker.png"></img>
+            <div class="roleDes">{{ $t('registerForm.changemaker') }}</div>
+          </el-radio>
+        </el-radio-group>
+        <el-radio-group v-model="formSimple.type" style="display: block">
+          <el-radio class="role" :label='4'>
+            <img class="roleImg" src="/static/investor.png"></img>
+            <div class="roleDes">{{ $t('registerForm.investor') }}</div>
+          </el-radio>
+          <el-radio class="role" :label='2'>
+            <img class="roleImg" src="/static/other.png"></img>
+            <div class="roleDes">{{ $t('registerForm.others') }}</div>
+          </el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item>
+        <el-button class="buttonRight" style="border: none;color: #279CFF;" @click="skip('formSimple')">{{ $t('registerForm.skip') }}</el-button>
+      </el-form-item>
+      <el-form-item>
+        <el-p class="button" style="color: #B6B3B4;">{{ $t('registerForm.chooseMsg') }}</el-p>
+      </el-form-item>
+      <el-form-item>
+        <el-button v-if="backStep < 2" class="back" @click="back('formSimple')">{{ $t('registerForm.back') }}</el-button>
+        <el-button type="primary" class="buttonRight" @click="next('formSimple')">{{ $t('registerForm.next') }}</el-button>
+      </el-form-item>
     </el-form>
-    <el-form :model="ruleForm" :rules="rules3" v-if="step === 3" ref="ruleForm" label-width="100px" class="form">
-    <el-form-item label="机构名称" prop="name">
-      <el-input v-model="ruleForm.name" placeholder="请输入机构名称"></el-input>
-    </el-form-item>
-    <el-form-item label="影响领域" prop="impactArea">
-      <el-checkbox-group v-model="ruleForm.impactArea">
-        <el-checkbox label="可再生资源" name="impactArea"></el-checkbox>
-        <el-checkbox label="小微金融" name="impactArea"></el-checkbox>
-        <el-checkbox label="性别平等" name="impactArea"></el-checkbox>
-        <el-checkbox label="教育" name="impactArea"></el-checkbox>
-        <el-checkbox label="环境" name="impactArea"></el-checkbox>
-        <el-checkbox label="健康" name="impactArea"></el-checkbox>
-        <el-checkbox label="农业" name="impactArea"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="impactArea" @change="impactArea()"></el-checkbox>
-        <el-form-item label="" prop="impactAreaInput">
-          <el-input v-if="impactAreaInput" v-model="ruleForm.impactAreaInput"  placeholder="请输入影响领域"></el-input>
+    <el-form :model="ruleForm" :rules="rules3" v-if="step===3" ref="ruleForm" label-width="150px" class="form3">
+      <el-form-item v-if="formSimple.type == 1" :label="$t('registerForm.user')" prop="user" required>
+        <el-input v-model="ruleForm.user" :placeholder="$t('registerForm.userMsg')" :maxlength='48'></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('registerForm.name')" prop="name" required>
+        <el-input v-model="ruleForm.name" :placeholder="$t('registerForm.nameMsg')" :maxlength='240'></el-input>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type < 3" :label="$t('expertise')" prop="expertise" required>
+        <el-input v-model="ruleForm.expertise" :maxlength='240'></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('sector')" prop="sectors" required>
+        <el-checkbox-group v-model="ruleForm.sectors">
+          <el-checkbox label="1" name="sectors">{{ $t('registerForm.energy') }}</el-checkbox>
+          <el-checkbox label="2" name="sectors">{{ $t('registerForm.finance') }}</el-checkbox>
+          <el-checkbox label="3" name="sectors">{{ $t('registerForm.gender') }}</el-checkbox>
+          <el-checkbox label="4" name="sectors">{{ $t('registerForm.education') }}</el-checkbox>
+          <el-checkbox label="5" name="sectors">{{ $t('registerForm.environment') }}</el-checkbox>
+          <el-checkbox label="6" name="sectors">{{ $t('registerForm.health') }}</el-checkbox>
+          <el-checkbox label="7" name="sectors">{{ $t('registerForm.agriculture') }}</el-checkbox>
+          <el-checkbox label=0 name="sectors" @change="sector()">{{ $t('registerForm.other') }}</el-checkbox>
+          <el-form-item label="" prop="sectorInput ">
+            <el-input v-if="sectorInput" v-model="ruleForm.sectorInput" :placeholder="$t('registerForm.sectorMsg')"></el-input>
+          </el-form-item>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type > 2" :label="$t('founded')" required>
+        <el-col :span="15">
+          <el-form-item prop="founded">
+            <el-date-picker type="date" format="yyyy-MM-dd" :editable="false" :placeholder="$t('registerForm.foundedMsg')" v-model="ruleForm.founded" style="width: 100%;"></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-form-item>
+      <el-form-item :label="$t('location')" prop="location">
+        <el-input v-model="ruleForm.location" :placeholder="$t('registerForm.locationMsg')" :maxlength='240'></el-input>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 4" :label="$t('destination')" prop="destination">
+        <el-input v-model="ruleForm.destination" :placeholder="$t('registerForm.destinationMsg')" :maxlength='240'></el-input>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 3" :label="$t('stage')" prop="stage">
+        <el-radio-group v-model="ruleForm.stage">
+          <el-radio label="1">{{ $t('idea') }}</el-radio>
+          <el-radio label="2">{{ $t('start') }}</el-radio>
+          <el-radio label="3">{{ $t('scaling') }}</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 4" :label="$t('investStage')" prop="stage">
+        <el-radio-group v-model="ruleForm.stage">
+          <el-radio label="1">{{ $t('idea') }}</el-radio>
+          <el-radio label="2">{{ $t('start') }}</el-radio>
+          <el-radio label="3">{{ $t('scaling') }}</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 3" :label="$t('budget')" prop="budget">
+        <el-radio-group v-model="ruleForm.budget">
+          <el-radio label="1">&lt;$10,000</el-radio>
+          <el-radio label="2">$10,000-50,000</el-radio>
+          <el-radio label="3">$50,000-100,000$</el-radio>
+          <el-radio label="4">&gt;$100,000</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 4" :label="$t('investBudget')" prop="budget">
+        <el-radio-group v-model="ruleForm.budget">
+          <el-radio label="1">&lt;$10,000</el-radio>
+          <el-radio label="2">$10,000-50,000</el-radio>
+          <el-radio label="3">$50,000-100,000$</el-radio>
+          <el-radio label="4">&gt;$100,000</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 3" :label="$t('staff')" prop="staff">
+        <el-input v-model="ruleForm.staff" :maxlength='8'></el-input>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 4" :label="$t('returnRate')" prop="returnRate">
+        <el-input v-model="ruleForm.returnRate" :maxlength='2' style="width: 100px"></el-input>&nbsp;&nbsp;&nbsp;%
+      </el-form-item>
+      <el-form-item v-if="formSimple.type > 2" :label="$t('funding')" prop="fundSources">
+        <el-radio-group v-model="ruleForm.fundSources" @change="fundSource() ">
+          <el-radio label="1">{{ $t('registerForm.grant') }}</el-radio>
+          <el-radio label="2">{{ $t('registerForm.loan') }}</el-radio>
+          <el-radio label="3">{{ $t('registerForm.equity') }}</el-radio>
+          <el-radio label="4">{{ $t('registerForm.self') }}</el-radio>
+          <el-radio label="0">{{ $t('registerForm.other') }}</el-radio>
+        </el-radio-group>
+        <el-form-item prop="fundSourceInput">
+          <el-input v-if="fundSourceInput" v-model="ruleForm.fundSourceInput" :placeholder="$t('registerForm.fundingMsg')"></el-input>
         </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="创立时间" required>
-      <el-col :span="15">
-        <el-form-item prop="createDate">
-          <el-date-picker type="date" :editable="false" placeholder="选择日期" v-model="ruleForm.createDate" style="width: 100%;"></el-date-picker>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="地点" prop="location">
-      <el-input v-model="ruleForm.location" placeholder="请输入地点"></el-input>
-    </el-form-item>
-    <el-form-item label="项目进展" prop="stage">
-      <el-radio-group v-model="ruleForm.stage">
-        <el-radio label="1">设想期</el-radio>
-        <el-radio label="2">初创期</el-radio>
-        <el-radio label="3">发展期</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="年预算" prop="budget">
-      <el-radio-group v-model="ruleForm.budget">
-        <el-radio label="1"><10,000$</el-radio>
-        <el-radio label="2">10,000 - 50,000$</el-radio>
-        <el-radio label="3">50,000-100,000$</el-radio>
-        <el-radio label="4">>100,000$</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="全职员工数量" prop="staff">
-      <el-input v-model="ruleForm.staff" placeholder="请输入全职员工数量"></el-input>
-    </el-form-item>
-    <el-form-item label="资金来源" prop="fundSource">
-      <el-radio-group v-model="ruleForm.fundSource" @change="fundSource()">
-        <el-radio label="捐赠"></el-radio>
-        <el-radio label="借贷"></el-radio>
-        <el-radio label="股权投资"></el-radio>
-        <el-radio label="自给"></el-radio>
-        <el-radio label="其他，请注明"></el-radio>
-      </el-radio-group>
-      <el-form-item label="" prop="fundSourceInput">
-          <el-input v-if="fundSourceInput" v-model="ruleForm.fundSourceInput"  placeholder="请输入资金来源"></el-input>
-        </el-form-item>
-    </el-form-item>
-    <el-form-item label="是否产生收入" prop="profitable">
-      <el-switch on-text="" off-text="" v-model="ruleForm.profitable"></el-switch>
-    </el-form-item>
-    <el-form-item label="如何得知Diinsider" prop="source">
-      <el-checkbox-group v-model="ruleForm.source">
-        <el-checkbox label="网站" name="source"></el-checkbox>
-        <el-checkbox label="媒体报道" name="source"></el-checkbox>
-        <el-checkbox label="社交媒体" name="source"></el-checkbox>
-        <el-checkbox label="Diinsider媒体" name="source"></el-checkbox>
-        <el-checkbox label="朋友／同事推荐" name="source"></el-checkbox>
-        <el-checkbox label="活动会议" name="source"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="source" @change="source()"></el-checkbox>
-        <el-form-item label="" prop="sourceInput">
-          <el-input v-if="sourceInput" v-model="ruleForm.sourceInput"  placeholder="请输入获知渠道"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="计划书" prop="files">
-      <el-upload class="upload-demo"
-        action="https://www.baidu.com"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :file-list="ruleForm.files">
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">请上传您的项目计划书，包含问题描述、解决方案、服务群体、竞争优势、收入来源、市场前景、竞争者分析、团队介绍、社会影响力指标</div>
-        <div slot="tip" class="el-upload__tip">只能上传pdf文件，且不超过500kb</div>
-      </el-upload>
-    </el-form-item>
-    <el-form-item label="您需要哪方面的协助" prop="needs">
-      <el-checkbox-group v-model="ruleForm.needs">
-        <el-checkbox label="商业模式开发" name="needs"></el-checkbox>
-        <el-checkbox label="品牌推广" name="needs"></el-checkbox>
-        <el-checkbox label="融资" name="needs"></el-checkbox>
-        <el-checkbox label="市场渠道" name="needs"></el-checkbox>
-        <el-checkbox label="咨讯信息" name="needs"></el-checkbox>
-        <el-checkbox label="合作机会" name="needs"></el-checkbox>
-        <el-checkbox label="人力资源" name="needs"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="needs" @change="needs()"></el-checkbox>
-        <el-form-item label="" prop="needsInput">
-          <el-input v-if="needsInput" v-model="ruleForm.needsInput"  placeholder="请输入所需帮助"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="简单描述" prop="desc">
-      <el-input type="textarea" v-model="ruleForm.desc" placeholder="请简短描述一下您的项目，便于其他人搜索到您"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button @click="back('ruleForm')">上一步</el-button>
-      <el-button type="primary" @click="submitForm('ruleForm')">完成</el-button>
-    </el-form-item>
-  </el-form>
-  <el-form :model="ruleForm" :rules="rules3" v-if="step === 4" ref="ruleForm" label-width="100px" class="form">
-    <el-form-item label="机构名称" prop="name">
-      <el-input v-model="ruleForm.name" placeholder="请输入机构名称"></el-input>
-    </el-form-item>
-    <el-form-item label="影响领域" prop="impactArea">
-      <el-checkbox-group v-model="ruleForm.impactArea">
-        <el-checkbox label="可再生资源" name="impactArea"></el-checkbox>
-        <el-checkbox label="小微金融" name="impactArea"></el-checkbox>
-        <el-checkbox label="性别平等" name="impactArea"></el-checkbox>
-        <el-checkbox label="教育" name="impactArea"></el-checkbox>
-        <el-checkbox label="环境" name="impactArea"></el-checkbox>
-        <el-checkbox label="健康" name="impactArea"></el-checkbox>
-        <el-checkbox label="农业" name="impactArea"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="impactArea" @change="impactArea()"></el-checkbox>
-        <el-form-item label="" prop="impactAreaInput">
-          <el-input v-if="impactAreaInput" v-model="ruleForm.impactAreaInput"  placeholder="请输入影响领域"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="创立时间" required>
-      <el-col :span="15">
-        <el-form-item prop="createDate">
-          <el-date-picker type="date" :editable="false" placeholder="选择日期" v-model="ruleForm.createDate" style="width: 100%;"></el-date-picker>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="地点" prop="location">
-      <el-input v-model="ruleForm.location" placeholder="请输入地点"></el-input>
-    </el-form-item>
-    <el-form-item label="项目进展" prop="stage">
-      <el-radio-group v-model="ruleForm.stage">
-        <el-radio label="1">设想期</el-radio>
-        <el-radio label="2">初创期</el-radio>
-        <el-radio label="3">发展期</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="年预算" prop="budget">
-      <el-radio-group v-model="ruleForm.budget">
-        <el-radio label="1"><10,000$</el-radio>
-        <el-radio label="2">10,000 - 50,000$</el-radio>
-        <el-radio label="3">50,000-100,000$</el-radio>
-        <el-radio label="4">>100,000$</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="全职员工数量" prop="staff">
-      <el-input v-model="ruleForm.staff" placeholder="请输入全职员工数量"></el-input>
-    </el-form-item>
-    <el-form-item label="资金来源" prop="fundSource">
-      <el-radio-group v-model="ruleForm.fundSource" @change="fundSource()">
-        <el-radio label="捐赠"></el-radio>
-        <el-radio label="借贷"></el-radio>
-        <el-radio label="股权投资"></el-radio>
-        <el-radio label="自给"></el-radio>
-        <el-radio label="其他，请注明"></el-radio>
-      </el-radio-group>
-      <el-form-item label="" prop="fundSourceInput">
-          <el-input v-if="fundSourceInput" v-model="ruleForm.fundSourceInput"  placeholder="请输入资金来源"></el-input>
-        </el-form-item>
-    </el-form-item>
-    <el-form-item label="是否产生收入" prop="profitable">
-      <el-switch on-text="" off-text="" v-model="ruleForm.profitable"></el-switch>
-    </el-form-item>
-    <el-form-item label="如何得知Diinsider" prop="source">
-      <el-checkbox-group v-model="ruleForm.source">
-        <el-checkbox label="网站" name="source"></el-checkbox>
-        <el-checkbox label="媒体报道" name="source"></el-checkbox>
-        <el-checkbox label="社交媒体" name="source"></el-checkbox>
-        <el-checkbox label="Diinsider媒体" name="source"></el-checkbox>
-        <el-checkbox label="朋友／同事推荐" name="source"></el-checkbox>
-        <el-checkbox label="活动会议" name="source"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="source" @change="source()"></el-checkbox>
-        <el-form-item label="" prop="sourceInput">
-          <el-input v-if="sourceInput" v-model="ruleForm.sourceInput"  placeholder="请输入获知渠道"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="计划书" prop="files">
-      <el-upload class="upload-demo"
-        action="https://www.baidu.com"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :file-list="ruleForm.files">
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">请上传您的项目计划书，包含问题描述、解决方案、服务群体、竞争优势、收入来源、市场前景、竞争者分析、团队介绍、社会影响力指标</div>
-        <div slot="tip" class="el-upload__tip">只能上传pdf文件，且不超过500kb</div>
-      </el-upload>
-    </el-form-item>
-    <el-form-item label="您需要哪方面的协助" prop="needs">
-      <el-checkbox-group v-model="ruleForm.needs">
-        <el-checkbox label="商业模式开发" name="needs"></el-checkbox>
-        <el-checkbox label="品牌推广" name="needs"></el-checkbox>
-        <el-checkbox label="融资" name="needs"></el-checkbox>
-        <el-checkbox label="市场渠道" name="needs"></el-checkbox>
-        <el-checkbox label="咨讯信息" name="needs"></el-checkbox>
-        <el-checkbox label="合作机会" name="needs"></el-checkbox>
-        <el-checkbox label="人力资源" name="needs"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="needs" @change="needs()"></el-checkbox>
-        <el-form-item label="" prop="needsInput">
-          <el-input v-if="needsInput" v-model="ruleForm.needsInput"  placeholder="请输入所需帮助"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="简单描述" prop="desc">
-      <el-input type="textarea" v-model="ruleForm.desc" placeholder="请简短描述一下您的项目，便于其他人搜索到您"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button @click="back('ruleForm')">上一步</el-button>
-      <el-button type="primary" @click="submitForm('ruleForm')">完成</el-button>
-    </el-form-item>
-  </el-form>
-  <el-form :model="ruleForm" :rules="rules3" v-if="step === 5" ref="ruleForm" label-width="100px" class="form">
-    <el-form-item label="机构名称" prop="name">
-      <el-input v-model="ruleForm.name" placeholder="请输入机构名称"></el-input>
-    </el-form-item>
-    <el-form-item label="影响领域" prop="impactArea">
-      <el-checkbox-group v-model="ruleForm.impactArea">
-        <el-checkbox label="可再生资源" name="impactArea"></el-checkbox>
-        <el-checkbox label="小微金融" name="impactArea"></el-checkbox>
-        <el-checkbox label="性别平等" name="impactArea"></el-checkbox>
-        <el-checkbox label="教育" name="impactArea"></el-checkbox>
-        <el-checkbox label="环境" name="impactArea"></el-checkbox>
-        <el-checkbox label="健康" name="impactArea"></el-checkbox>
-        <el-checkbox label="农业" name="impactArea"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="impactArea" @change="impactArea()"></el-checkbox>
-        <el-form-item label="" prop="impactAreaInput">
-          <el-input v-if="impactAreaInput" v-model="ruleForm.impactAreaInput"  placeholder="请输入影响领域"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="创立时间" required>
-      <el-col :span="15">
-        <el-form-item prop="createDate">
-          <el-date-picker type="date" :editable="false" placeholder="选择日期" v-model="ruleForm.createDate" style="width: 100%;"></el-date-picker>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="地点" prop="location">
-      <el-input v-model="ruleForm.location" placeholder="请输入地点"></el-input>
-    </el-form-item>
-    <el-form-item label="项目进展" prop="stage">
-      <el-radio-group v-model="ruleForm.stage">
-        <el-radio label="1">设想期</el-radio>
-        <el-radio label="2">初创期</el-radio>
-        <el-radio label="3">发展期</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="年预算" prop="budget">
-      <el-radio-group v-model="ruleForm.budget">
-        <el-radio label="1"><10,000$</el-radio>
-        <el-radio label="2">10,000 - 50,000$</el-radio>
-        <el-radio label="3">50,000-100,000$</el-radio>
-        <el-radio label="4">>100,000$</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="全职员工数量" prop="staff">
-      <el-input v-model="ruleForm.staff" placeholder="请输入全职员工数量"></el-input>
-    </el-form-item>
-    <el-form-item label="资金来源" prop="fundSource">
-      <el-radio-group v-model="ruleForm.fundSource" @change="fundSource()">
-        <el-radio label="捐赠"></el-radio>
-        <el-radio label="借贷"></el-radio>
-        <el-radio label="股权投资"></el-radio>
-        <el-radio label="自给"></el-radio>
-        <el-radio label="其他，请注明"></el-radio>
-      </el-radio-group>
-      <el-form-item label="" prop="fundSourceInput">
-          <el-input v-if="fundSourceInput" v-model="ruleForm.fundSourceInput"  placeholder="请输入资金来源"></el-input>
-        </el-form-item>
-    </el-form-item>
-    <el-form-item label="是否产生收入" prop="profitable">
-      <el-switch on-text="" off-text="" v-model="ruleForm.profitable"></el-switch>
-    </el-form-item>
-    <el-form-item label="如何得知Diinsider" prop="source">
-      <el-checkbox-group v-model="ruleForm.source">
-        <el-checkbox label="网站" name="source"></el-checkbox>
-        <el-checkbox label="媒体报道" name="source"></el-checkbox>
-        <el-checkbox label="社交媒体" name="source"></el-checkbox>
-        <el-checkbox label="Diinsider媒体" name="source"></el-checkbox>
-        <el-checkbox label="朋友／同事推荐" name="source"></el-checkbox>
-        <el-checkbox label="活动会议" name="source"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="source" @change="source()"></el-checkbox>
-        <el-form-item label="" prop="sourceInput">
-          <el-input v-if="sourceInput" v-model="ruleForm.sourceInput"  placeholder="请输入获知渠道"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="计划书" prop="files">
-      <el-upload class="upload-demo"
-        action="https://www.baidu.com"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :file-list="ruleForm.files">
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">请上传您的项目计划书，包含问题描述、解决方案、服务群体、竞争优势、收入来源、市场前景、竞争者分析、团队介绍、社会影响力指标</div>
-        <div slot="tip" class="el-upload__tip">只能上传pdf文件，且不超过500kb</div>
-      </el-upload>
-    </el-form-item>
-    <el-form-item label="您需要哪方面的协助" prop="needs">
-      <el-checkbox-group v-model="ruleForm.needs">
-        <el-checkbox label="商业模式开发" name="needs"></el-checkbox>
-        <el-checkbox label="品牌推广" name="needs"></el-checkbox>
-        <el-checkbox label="融资" name="needs"></el-checkbox>
-        <el-checkbox label="市场渠道" name="needs"></el-checkbox>
-        <el-checkbox label="咨讯信息" name="needs"></el-checkbox>
-        <el-checkbox label="合作机会" name="needs"></el-checkbox>
-        <el-checkbox label="人力资源" name="needs"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="needs" @change="needs()"></el-checkbox>
-        <el-form-item label="" prop="needsInput">
-          <el-input v-if="needsInput" v-model="ruleForm.needsInput"  placeholder="请输入所需帮助"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="简单描述" prop="desc">
-      <el-input type="textarea" v-model="ruleForm.desc" placeholder="请简短描述一下您的项目，便于其他人搜索到您"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button @click="back('ruleForm')">上一步</el-button>
-      <el-button type="primary" @click="submitForm('ruleForm')">完成</el-button>
-    </el-form-item>
-  </el-form>
-  <el-form :model="ruleForm" :rules="rules3" v-if="step === 6" ref="ruleForm" label-width="100px" class="form">
-    <el-form-item label="机构名称" prop="name">
-      <el-input v-model="ruleForm.name" placeholder="请输入机构名称"></el-input>
-    </el-form-item>
-    <el-form-item label="影响领域" prop="impactArea">
-      <el-checkbox-group v-model="ruleForm.impactArea">
-        <el-checkbox label="可再生资源" name="impactArea"></el-checkbox>
-        <el-checkbox label="小微金融" name="impactArea"></el-checkbox>
-        <el-checkbox label="性别平等" name="impactArea"></el-checkbox>
-        <el-checkbox label="教育" name="impactArea"></el-checkbox>
-        <el-checkbox label="环境" name="impactArea"></el-checkbox>
-        <el-checkbox label="健康" name="impactArea"></el-checkbox>
-        <el-checkbox label="农业" name="impactArea"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="impactArea" @change="impactArea()"></el-checkbox>
-        <el-form-item label="" prop="impactAreaInput">
-          <el-input v-if="impactAreaInput" v-model="ruleForm.impactAreaInput"  placeholder="请输入影响领域"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="创立时间" required>
-      <el-col :span="15">
-        <el-form-item prop="createDate">
-          <el-date-picker type="date" :editable="false" placeholder="选择日期" v-model="ruleForm.createDate" style="width: 100%;"></el-date-picker>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="地点" prop="location">
-      <el-input v-model="ruleForm.location" placeholder="请输入地点"></el-input>
-    </el-form-item>
-    <el-form-item label="项目进展" prop="stage">
-      <el-radio-group v-model="ruleForm.stage">
-        <el-radio label="1">设想期</el-radio>
-        <el-radio label="2">初创期</el-radio>
-        <el-radio label="3">发展期</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="年预算" prop="budget">
-      <el-radio-group v-model="ruleForm.budget">
-        <el-radio label="1"><10,000$</el-radio>
-        <el-radio label="2">10,000 - 50,000$</el-radio>
-        <el-radio label="3">50,000-100,000$</el-radio>
-        <el-radio label="4">>100,000$</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="全职员工数量" prop="staff">
-      <el-input v-model="ruleForm.staff" placeholder="请输入全职员工数量"></el-input>
-    </el-form-item>
-    <el-form-item label="资金来源" prop="fundSource">
-      <el-radio-group v-model="ruleForm.fundSource" @change="fundSource()">
-        <el-radio label="捐赠"></el-radio>
-        <el-radio label="借贷"></el-radio>
-        <el-radio label="股权投资"></el-radio>
-        <el-radio label="自给"></el-radio>
-        <el-radio label="其他，请注明"></el-radio>
-      </el-radio-group>
-      <el-form-item label="" prop="fundSourceInput">
-          <el-input v-if="fundSourceInput" v-model="ruleForm.fundSourceInput"  placeholder="请输入资金来源"></el-input>
-        </el-form-item>
-    </el-form-item>
-    <el-form-item label="是否产生收入" prop="profitable">
-      <el-switch on-text="" off-text="" v-model="ruleForm.profitable"></el-switch>
-    </el-form-item>
-    <el-form-item label="如何得知Diinsider" prop="source">
-      <el-checkbox-group v-model="ruleForm.source">
-        <el-checkbox label="网站" name="source"></el-checkbox>
-        <el-checkbox label="媒体报道" name="source"></el-checkbox>
-        <el-checkbox label="社交媒体" name="source"></el-checkbox>
-        <el-checkbox label="Diinsider媒体" name="source"></el-checkbox>
-        <el-checkbox label="朋友／同事推荐" name="source"></el-checkbox>
-        <el-checkbox label="活动会议" name="source"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="source" @change="source()"></el-checkbox>
-        <el-form-item label="" prop="sourceInput">
-          <el-input v-if="sourceInput" v-model="ruleForm.sourceInput"  placeholder="请输入获知渠道"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="计划书" prop="files">
-      <el-upload class="upload-demo"
-        action="https://www.baidu.com"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :file-list="ruleForm.files">
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">请上传您的项目计划书，包含问题描述、解决方案、服务群体、竞争优势、收入来源、市场前景、竞争者分析、团队介绍、社会影响力指标</div>
-        <div slot="tip" class="el-upload__tip">只能上传pdf文件，且不超过500kb</div>
-      </el-upload>
-    </el-form-item>
-    <el-form-item label="您需要哪方面的协助" prop="needs">
-      <el-checkbox-group v-model="ruleForm.needs">
-        <el-checkbox label="商业模式开发" name="needs"></el-checkbox>
-        <el-checkbox label="品牌推广" name="needs"></el-checkbox>
-        <el-checkbox label="融资" name="needs"></el-checkbox>
-        <el-checkbox label="市场渠道" name="needs"></el-checkbox>
-        <el-checkbox label="咨讯信息" name="needs"></el-checkbox>
-        <el-checkbox label="合作机会" name="needs"></el-checkbox>
-        <el-checkbox label="人力资源" name="needs"></el-checkbox>
-        <el-checkbox label="其他，请注明" name="needs" @change="needs()"></el-checkbox>
-        <el-form-item label="" prop="needsInput">
-          <el-input v-if="needsInput" v-model="ruleForm.needsInput"  placeholder="请输入所需帮助"></el-input>
-        </el-form-item>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="简单描述" prop="desc">
-      <el-input type="textarea" v-model="ruleForm.desc" placeholder="请简短描述一下您的项目，便于其他人搜索到您"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button @click="back('ruleForm')">上一步</el-button>
-      <el-button type="primary" @click="submitForm('ruleForm')">完成</el-button>
-    </el-form-item>
-  </el-form>
-  <div v-if="step > 6" class="complete">
-    <img src="/static/complete.png" class="img"></img>
-  </div>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 4" :label="$t('registerForm.expect')" prop="expect">
+        <el-radio-group v-model="ruleForm.expect">
+          <el-radio :label="1">{{ $t('onlySocial') }}</el-radio>
+          <el-radio :label="2">{{ $t('onlyEconomic') }}</el-radio>
+          <el-radio :label="3">{{ $t('bothSocial') }}</el-radio>
+          <el-radio :label="4">{{ $t('bothEconomic') }}</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 3" :label="$t('registerForm.revenue')" prop="revenue">
+        <el-switch on-text="yes" off-text="no" on-value="1" off-value="0" v-model="ruleForm.revenue"></el-switch>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 3" :label="$t('registerForm.assistance')" prop="assistances">
+        <el-checkbox-group v-model="ruleForm.assistances">
+          <el-checkbox label="1" name="assistances">{{ $t('registerForm.assis.business') }}</el-checkbox>
+          <el-checkbox label="2" name="assistances">{{ $t('registerForm.assis.brand') }}</el-checkbox>
+          <el-checkbox label="3" name="assistances">{{ $t('registerForm.assis.program') }}</el-checkbox>
+          <el-checkbox label="4" name="assistances">{{ $t('registerForm.assis.impact') }}</el-checkbox>
+          <el-checkbox label="5" name="assistances">{{ $t('registerForm.assis.market') }}</el-checkbox>
+          <el-checkbox label="6" name="assistances">{{ $t('registerForm.assis.date') }}</el-checkbox>
+          <el-checkbox label="7" name="assistances">{{ $t('registerForm.assis.partner') }}</el-checkbox>
+          <el-checkbox label="8" name="assistances">{{ $t('registerForm.assis.human') }}</el-checkbox>
+          <el-checkbox label="9" name="assistances">{{ $t('registerForm.assis.monitor') }}</el-checkbox>
+          <el-checkbox label="0" name="assistances" @change="assistance()">{{ $t('registerForm.other') }}</el-checkbox>
+          <el-form-item label="" prop="assistanceInput">
+            <el-input v-if="assistanceInput" v-model="ruleForm.assistanceInput" :placeholder="$t('registerForm.assisMsg')"></el-input>
+          </el-form-item>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type > 1" :label="$t('desc')" prop="desc">
+        <el-input type="textarea" v-model="ruleForm.desc" :maxlength='480' :placeholder="$t('registerForm.descMsg')"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('registerForm.resource')" prop="sources">
+        <el-checkbox-group v-model="ruleForm.sources">
+          <el-checkbox label="1" name="sources">{{ $t('registerForm.resources.website') }}</el-checkbox>
+          <el-checkbox label="2" name="sources">{{ $t('registerForm.resources.media') }}</el-checkbox>
+          <el-checkbox label="3" name="sources">{{ $t('registerForm.resources.social') }}</el-checkbox>
+          <el-checkbox label="4" name="sources">{{ $t('registerForm.resources.invited') }}</el-checkbox>
+          <el-checkbox label="5" name="sources">{{ $t('registerForm.resources.referred') }}</el-checkbox>
+          <el-checkbox label="6" name="sources">{{ $t('registerForm.resources.conference') }}</el-checkbox>
+          <el-checkbox label="0" name="sources" @change="source()">{{ $t('registerForm.other') }}</el-checkbox>
+          <el-form-item label="" prop="sourceInput">
+            <el-input v-if="sourceInput" v-model="ruleForm.sourceInput"></el-input>
+          </el-form-item>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 3" :label="$t('plan')" prop="plan">
+        <el-upload class="upload-demo" :http-request="upload" action="http://localhost:8066/test/utils/upload" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList">
+          <el-button size="small" type="primary">{{ $t('registerForm.upload') }}</el-button>
+          <div slot="tip" class="el-upload__tip">{{ $t('registerForm.planMsg1') }}</div>
+          <div slot="tip" class="el-upload__tip">{{ $t('registerForm.planMsg2') }}</div>
+        </el-upload>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type > 2" :label="$t('registerForm.logo')" prop="logo">
+        <el-upload class="upload-demo" action="/test/utils/upload" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="logoList">
+          <el-button size="small" type="primary">{{ $t('registerForm.upload') }}</el-button>
+          <div slot="tip" class="el-upload__tip">{{ $t('registerForm.logoMsg') }}</div>
+        </el-upload>
+      </el-form-item>
+      <el-form-item v-if="formSimple.type == 4" :label="$t('registerForm.willing')" prop="rate">
+        <div style="color: rgb(206, 229, 250)">{{ $t('registerForm.rate') }}</div>
+        <div>&nbsp; </div>
+        <div>{{ $t('registerForm.rate1') }}</div>
+        <el-rate :max=9 v-model="ruleForm.rate1"></el-rate>
+        <div>&nbsp; </div>
+        <div>{{ $t('registerForm.rate2') }}</div>
+        <el-rate :max=9 v-model="ruleForm.rate2"></el-rate>
+        <div>&nbsp; </div>
+        <div>{{ $t('registerForm.rate3') }}</div>
+        <el-rate :max=9 v-model="ruleForm.rate3"></el-rate>
+        <div>&nbsp; </div>
+        <div>{{ $t('registerForm.rate4') }}</div>
+        <el-rate :max=9 v-model="ruleForm.rate4"></el-rate>
+      </el-form-item>
+      <el-form-item>
+        <el-button v-if="backStep < 3" @click="back('ruleForm')">{{ $t('registerForm.back') }}</el-button>
+        <el-button type="primary" class="buttonRight" @click="submitForm('ruleForm')">{{ $t('registerForm.complete') }}</el-button>
+      </el-form-item>
+    </el-form>
+    <div v-if="step > 3" class="complete">
+      <img src="/static/complete.png" class="img"></img>
+    </div>
   </div>
 </template>
 
 <script lang="babel">
+  import Vue from 'vue'
 
   export default {
-    props: {
-      index: String,
-    },
+    props: [
+      'index',
+    ],
     data: function () {
-      const checkPassword = (rule, value, callback) => {
-        if (value !== this.ruleForm.password) {
-          callback(new Error('两次密码不一致'))
+      const checkEmail = (rule, value, callback) => {
+        this.emailValid(value).then((data) => {
+          if (data.errCode !== 'success') {
+            callback(new Error(data.message))
+          } else {
+            callback()
+          }
+        },
+        ).catch((e) => {
+          callback(new Error(this.$t('error')))
+        })
+      }
+      const checkConfirm = (rule, value, callback) => {
+        if (value !== this.formSimple.password) {
+          callback(new Error(this.$t('registerForm.confirmValid')))
         }
         callback()
       }
-      const validImpactArea = (rule, value, callback) => {
-        if (this.ruleForm.impactArea.indexOf('其他，请注明') !== -1 && value === '') {
-          callback(new Error('请输入影响领域'))
+      const checkRole = (rule, value, callback) => {
+        if (value === 0) {
+          callback(new Error(this.$t('registerForm.chooseValid')))
+        }
+        callback()
+      }
+      const checkLeast = (rule, value, callback) => {
+        console.log(value)
+        if (value === null || value.length === 0) {
+          callback(new Error(this.$t('registerForm.least')))
+        }
+        callback()
+      }
+      const validSector = (rule, value, callback) => {
+        if (this.ruleForm.sectors.indexOf('0') !== -1 && value === '') {
+          callback(new Error(this.$t('registerForm.sectorMsg')))
         }
         callback()
       }
       const validFundSource = (rule, value, callback) => {
-        if (this.ruleForm.fundSource.indexOf('其他，请注明') !== -1 && value === '') {
-          callback(new Error('请输入资金来源'))
+        if (this.ruleForm.fundSources === '0' && value === '') {
+          callback(new Error(this.$t('registerForm.fundingMsg')))
         }
         callback()
       }
       const validSource = (rule, value, callback) => {
-        if (this.ruleForm.source.indexOf('其他，请注明') !== -1 && value === '') {
-          callback(new Error('请输入获知渠道'))
+        if (this.ruleForm.sources.indexOf('0') !== -1 && value === '') {
+          callback(new Error(this.$t('registerForm.sourceMsg')))
         }
         callback()
       }
-      const validNeeds = (rule, value, callback) => {
-        if (this.ruleForm.needs.indexOf('其他，请注明') !== -1 && value === '') {
-          callback(new Error('请输入所需协助'))
+      const validAssistance = (rule, value, callback) => {
+        if (this.ruleForm.assistances.indexOf('0') !== -1 && value === '') {
+          callback(new Error(this.$t('registerForm.assisMsg')))
+        }
+        callback()
+      }
+      const validNumber = (rule, value, callback) => {
+        if (!value.match(/^\d+$/)) {
+          callback(new Error(this.$t('registerForm.numberMsg')))
         }
         callback()
       }
       return {
-        impactAreaInput: false,
+        sectorMap: {
+          '1': 'renewable energy',
+          '2': 'inclusive finance',
+          '3': 'gender equity',
+          '4': 'education',
+          '5': 'environment',
+          '6': 'health',
+          '7': 'agriculture',
+        },
+        sectorInput: false,
+        fundSourceMap: {
+          '1': 'grant',
+          '2': 'loan',
+          '3': 'equity',
+          '4': 'self',
+        },
         fundSourceInput: false,
+        sourceMap: {
+          '1': 'website',
+          '2': 'media',
+          '3': 'social',
+          '4': 'invited',
+          '5': 'referred',
+          '6': 'conference',
+        },
         sourceInput: false,
-        needsInput: false,
-        step: 3,
+        assistanceMap: {
+          '1': 'business',
+          '2': 'brand',
+          '3': 'program',
+          '4': 'impact',
+          '5': 'market',
+          '6': 'date',
+          '7': 'partner',
+          '8': 'human',
+          '9': 'monitor',
+        },
+        assistanceInput: false,
+        step: 1,
+        backStep: 1,
         fileList: [],
-        ruleForm: {
+        logoList: [],
+        formSimple: {
           email: '',
           password: '',
           passwordConfirm: '',
-          type: 1,
+          type: 0,
+        },
+        ruleForm: {
           name: '',
-          impactArea: [],
-          impactAreaInput: '',
-          createDate: '',
+          sectors: [],
+          sector: '',
+          sectorInput: '',
+          founded: '',
           location: '',
           stage: '',
           budget: '',
           staff: '',
           fundSource: '',
+          fundSources: '',
           fundSourceInput: '',
-          profitable: false,
-          source: [],
+          revenue: false,
+          sources: [],
+          source: '',
           sourceInput: '',
-          files: [],
-          needs: [],
-          needsInput: '',
+          plans: [],
+          plan: '',
+          logo: '',
+          assistances: [],
+          assistance: '',
+          assistanceInput: '',
           desc: '',
+          destination: '',
+          returnRate: '',
+          rate: '',
+          rate1: 0,
+          rate2: 0,
+          rate3: 0,
+          rate4: 0,
+          expect: 0,
         },
         rules1: {
           email: [
-            { required: true, message: '电子邮箱不能为空', trigger: 'blur' },
+            { required: true, message: ' ', trigger: 'blur' },
+            { validator: checkEmail, trigger: 'blur' },
           ],
           password: [
-            { required: true, message: '登录密码不能为空', trigger: 'blur' },
+            { required: true, message: ' ', trigger: 'blur' },
           ],
           passwordConfirm: [
-            { required: true, message: '两次密码不一致', trigger: 'blur' },
-            { validator: checkPassword },
+            { required: true, message: ' ', trigger: 'blur' },
+            { validator: checkConfirm, trigger: 'blur' },
           ],
         },
         rules2: {
           type: [
-            { required: true, message: '若不选择角色请点击跳过', trigger: 'change' },
+            { validator: checkRole, trigger: 'change' },
           ],
         },
         rules3: {
           name: [
-            { required: true, message: '请输入机构名称', trigger: 'blur' },
-            { min: 0, max: 100, message: '不要超过100个字符', trigger: 'blur' },
+            { required: true, message: ' ', trigger: 'blur' },
           ],
-          impactArea: [
-            { type: 'array', required: true, message: '请至少选择一个影响领域', trigger: 'change' },
+          sectors: [
+            { validator: checkLeast, trigger: 'change' },
           ],
-          impactAreaInput: [
-            { validator: validImpactArea, message: '请输入影响领域', trigger: 'blur' },
+          sectorInput: [
+            { validator: validSector, trigger: 'blur' },
           ],
-          createDate: [
-            { type: 'date', required: true, message: '请选择创建日期', trigger: 'change' },
+          founded: [
+            { type: 'date', required: true, message: ' ', trigger: 'change' },
           ],
-          location: [
-            { required: true, message: '地点不能为空', trigger: 'blur' },
-            { min: 0, max: 100, message: '不要超过100个字符', trigger: 'blur' },
+          destination: [
+            { required: true, message: ' ', trigger: 'blur' },
           ],
           stage: [
-            { required: true, message: '请选择项目进展', trigger: 'change' },
+            { required: true, message: ' ', trigger: 'change' },
+          ],
+          returnRate: [
+            { required: true, message: ' ', trigger: 'blur' },
+            { validator: validNumber, trigger: 'blur' },
+          ],
+          expect: [
+            { type: 'number', required: true, message: ' ', trigger: 'change' },
           ],
           budget: [
-            { required: true, message: '请选择年预算', trigger: 'change' },
+            { required: true, message: ' ', trigger: 'change' },
           ],
           staff: [
-            { required: true, message: '全职员工数量不能为空', trigger: 'blur' },
-            { pattern: /^\d+$/, message: '请输入数字', trigger: 'blur' },
+            { required: true, message: ' ', trigger: 'blur' },
+            { validator: validNumber, trigger: 'blur' },
           ],
-          fundSource: [
-            { required: true, message: '请选择资金来源', trigger: 'change' },
+          fundSources: [
+            { required: true, message: ' ', trigger: 'change' },
           ],
           fundSourceInput: [
-            { validator: validFundSource, message: '请输入资金来源', trigger: 'blur' },
+            { validator: validFundSource, message: ' ', trigger: 'blur' },
           ],
-          source: [
-            { type: 'array', required: true, message: '至少请选择一个获知渠道', trigger: 'change' },
+          sources: [
+            { validator: checkLeast, trigger: 'change' },
           ],
           sourceInput: [
-            { validator: validSource, message: '请输入获知渠道', trigger: 'blur' },
+            { validator: validSource, message: ' ', trigger: 'blur' },
           ],
-          files: [
+          plans: [
           ],
-          needs: [
-            { type: 'array', required: true, message: '请至少选择一个需求', trigger: 'change' },
+          assistances: [
+            { validator: checkLeast, trigger: 'change' },
           ],
-          needsInput: [
-            { validator: validNeeds, message: '请输入需求', trigger: 'blur' },
+          assistanceInput: [
+            { validator: validAssistance, message: ' ', trigger: 'blur' },
           ],
           desc: [
-            { required: true, message: '请填写简单描述', trigger: 'blur' },
+            { required: true, message: ' ', trigger: 'blur' },
           ],
         },
       }
     },
-    computed: {
+    created: function () {
+      if (this.$route.query.step !== undefined && this.$route.query.step !== null) {
+        this.step = parseInt(this.$route.query.step, 10)
+      }
+      this.backStep = this.step
     },
     methods: {
       handleRemove(file, fileList) {
@@ -638,68 +464,225 @@
       handlePreview(file) {
         console.log(file)
       },
-      impactArea() {
-        if (this.ruleForm.impactArea.indexOf('其他，请注明') === -1) {
-          this.impactAreaInput = false
+      sector() {
+        console.log(this.ruleForm.sectors)
+        if (this.ruleForm.sectors.indexOf('0') === -1) {
+          this.sectorInput = false
         } else {
-          this.impactAreaInput = true
+          this.sectorInput = true
         }
       },
       fundSource() {
-        if (this.ruleForm.fundSource !== '其他，请注明') {
+        if (this.ruleForm.fundSources !== '0') {
           this.fundSourceInput = false
         } else {
           this.fundSourceInput = true
         }
       },
+      upload: async function (val) {
+        console.log(val.file)
+        const response = await this.$ajax.post('/test/utils/upload', { file: val.file }, { headers: { 'Content-Type': 'multipart/form-data', 'Accept-Language': Vue.config.lang === 'en' ? 'en-us' : 'zh-CN' } })
+        response.data.then((data) => {
+          console.log(data)
+        })
+      },
       source() {
-        if (this.ruleForm.source.indexOf('其他，请注明') === -1) {
+        if (this.ruleForm.sources.indexOf('0') === -1) {
           this.sourceInput = false
         } else {
           this.sourceInput = true
         }
       },
-      needs() {
-        if (this.ruleForm.needs.indexOf('其他，请注明') === -1) {
-          this.needsInput = false
+      assistance() {
+        if (this.ruleForm.assistances.indexOf('0') === -1) {
+          this.assistanceInput = false
         } else {
-          this.needsInput = true
+          this.assistanceInput = true
         }
+      },
+      submitDetail() {
+        console.log(2)
+        this.ruleForm.sector =
+          this.transferArray(this.ruleForm.sectors, this.ruleForm.sectorInput, this.sectorMap)
+        this.ruleForm.source =
+          this.transferArray(this.ruleForm.sources, this.ruleForm.sourceInput, this.sourceMap)
+        this.ruleForm.assistance =
+          this.transferArray(this.ruleForm.assistances,
+          this.ruleForm.assistanceInput, this.assistanceMap)
+        this.ruleForm.fundSource =
+          this.transferString(this.ruleForm.fundSources,
+          this.ruleForm.fundSourceInput, this.fundSourceMap)
+        let response = ''
+        switch (this.formSimple.type) {
+          case 1:
+            response = this.registerIndividual()
+            break
+          case 2:
+            response = this.registerOthers()
+            break
+          case 3:
+            response = this.registerStartup()
+            break
+          case 4:
+            response = this.registerInvestor()
+            break
+          default:
+            this.$msgbox({
+              title: this.$t('hint'),
+              confirmButtonText: this.$t('confirm'),
+              message: this.$t('registerForm.choose'),
+            }).then((action) => {
+
+            })
+            return 0
+        }
+        return response.then((dataDetail) => {
+          if (dataDetail.errCode === 'success') {
+            this.step = 4
+            return 1
+          }
+          this.$msgbox({
+            title: this.$t('hint'),
+            confirmButtonText: this.$t('confirm'),
+            message: dataDetail.message,
+          }).then((action) => {
+
+          })
+          return 0
+        }).catch((e) => {
+          this.$msgbox({
+            title: this.$t('hint'),
+            confirmButtonText: this.$t('confirm'),
+            message: this.$t('error'),
+          }).then((action) => {
+
+          })
+          return 0
+        })
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (!valid) {
-            return false
+          if (valid) {
+            if (sessionStorage.getItem('loginStatus') === '0') {
+              this.registerSimple().then((data) => {
+                if (data.errCode === 'success') {
+                  this.$emit('admin', data.data)
+                  sessionStorage.setItem('adminId', data.data.id)
+                  sessionStorage.setItem('loginStatus', '1')
+                  sessionStorage.setItem('type', data.data.type)
+                  sessionStorage.setItem('rate', data.data.rate)
+                  sessionStorage.setItem('email', data.data.email)
+                  this.backStep = data.data.type === 0 ? 2 : 3
+                  if (this.submitDetail() === 0) {
+                    this.$msgbox({
+                      title: this.$t('hint'),
+                      confirmButtonText: this.$t('confirm'),
+                      message: this.$t('registerEmailMsg'),
+                    }).then((action) => {
+
+                    })
+                  }
+                } else {
+                  this.$msgbox({
+                    title: this.$t('hint'),
+                    confirmButtonText: this.$t('confirm'),
+                    message: data.message,
+                  }).then((action) => {
+
+                  })
+                }
+              }).catch((e) => {
+                this.$msgbox({
+                  title: this.$t('hint'),
+                  confirmButtonText: this.$t('confirm'),
+                  message: this.$t('error'),
+                }).then((action) => {
+
+                })
+              })
+            } else {
+              this.$ajax('/test/admin/login', { headers: { 'Accept-Language': Vue.config.lang === 'en' ? 'en-us' : 'zh-CN' }, params: { email: this.formSimple.email, password: this.formSimple.password } })
+              this.submitDetail()
+            }
           }
-          this.step = 7
-          return true
         })
+      },
+      transferArray(vals, valInput, valMap) {
+        let result = ''
+        if (vals.indexOf('0') !== -1) {
+          result = valInput
+        }
+        const tmp = vals.filter(val => val !== '0').map(val => valMap[val]).join(',')
+        if (tmp !== null && tmp !== '') {
+          if (result !== null && result !== '') {
+            result += ','
+          }
+          result += tmp
+        }
+        return result
+      },
+      transferString(val, valInput, valMap) {
+        let result = ''
+        if (val === '0') {
+          result = valInput
+        } else {
+          result = valMap[val]
+        }
+        return result
+      },
+      emailValid: async function (email) {
+        const response = await this.$ajax('/test/admin/validEmail', { headers: { 'Accept-Language': Vue.config.lang === 'en' ? 'en-us' : 'zh-CN' }, params: { email: email } })
+        return response.data
+      },
+      registerSimple: async function () {
+        const response = await this.$ajax('/test/admin/registerSimple', { headers: { 'Accept-Language': Vue.config.lang === 'en' ? 'en-us' : 'zh-CN' }, params: this.formSimple })
+        return response.data
+      },
+      registerIndividual: async function () {
+        const response = await this.$ajax('/test/individual/addIndividual', { headers: { 'Accept-Language': Vue.config.lang === 'en' ? 'en-us' : 'zh-CN' }, params: this.ruleForm })
+        return response.data
+      },
+      registerOthers: async function () {
+        const response = await this.$ajax('/test/others/addOthers', { headers: { 'Accept-Language': Vue.config.lang === 'en' ? 'en-us' : 'zh-CN' }, params: this.ruleForm })
+        return response.data
+      },
+      registerStartup: async function () {
+        const response = await this.$ajax('/test/startup/addStartup', { headers: { 'Accept-Language': Vue.config.lang === 'en' ? 'en-us' : 'zh-CN' }, params: this.ruleForm })
+        return response.data
+      },
+      registerInvestor: async function () {
+        this.ruleForm.rate = `${this.ruleForm.rate1},${this.ruleForm.rate2},${this.ruleForm.rate3},${this.ruleForm.rate4}`
+        const response = await this.$ajax('/test/investor/addInvestor', { headers: { 'Accept-Language': Vue.config.lang === 'en' ? 'en-us' : 'zh-CN' }, params: this.ruleForm })
+        return response.data
       },
       next(formName) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
             return false
           }
-          console.log(this.ruleForm.type)
-          if (this.step === 1) {
-            this.step = 2
-          } else if (this.step === 2) {
-            this.step += parseInt(this.ruleForm.type, 10)
-          } else {
-            this.step = 7
-          }
-          console.log(this.step)
+          this.step += 1
           return true
         })
       },
       back(formName) {
+        console.log(this.step)
         this.step = this.step === 2 ? 1 : 2
       },
       skip(formName) {
-        this.step = 7
+        this.formSimple.type = 0
+        this.registerSimple().then((data) => {
+          if (data.errCode === 'success') {
+            this.step = 4
+          } else {
+            console.log(data.message)
+          }
+        })
       },
       resetForm(formName) {
         this.$refs[formName].resetFields()
+      },
+      login() {
+        this.$router.push({ path: '/login' })
       },
     },
     filters: {
@@ -709,30 +692,113 @@
 
 <style lang="scss" scoped>
 .registry {
+  width: 800px;
+  background: #282B2F;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 100px;
   padding-top: 50px;
+  color: white;
+  .steps {
+    padding-left: 30px;
+  }
   .form {
-    background: white;
     margin: 0 auto;
-    max-width: 450px;
+    width: 600px;
     padding-top: 2rem;
+    padding-bottom: 2rem;
     .button {
       float: right;
       margin-right: 20%;
     }
+    .buttonRight {
+      float: right;
+      margin-right: 15%;
+    }
     .el-input {
       width: 80%;
     }
+    .back {
+      margin-left: 100px;
+    }
+  }
+  .form2 {
+    margin: 0 auto;
+    width: 500px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 100px;
+    .button {
+      float: right;
+      margin-right: 20%;
+    }
+    .buttonRight {
+      float: right;
+      margin-right: 20%;
+    }
+    .role {
+      height: 100px;
+      width: 200px;
+      display: inline-block;
+      .roleImg {
+        padding-left: 50px;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+      }
+      .roleDes {
+        padding-left: 25px;
+        text-align: center;
+        padding-top: 10px;
+      }
+    }
+  }
+  .form3 {
+    margin: 0 auto;
+    width: 700px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    .button {
+      float: right;
+      margin-right: 20%;
+    }
+    .buttonRight {
+      float: right;
+      margin-right: 15%;
+    }
+    .el-input {
+      width: 75%;
+    }
+    .back {
+      margin-left: 100px;
+    }
   }
   .complete {
-    background: white;
     margin: 0 auto;
-    max-width: 450px;
+    width: 450px;
     .img {
-      padding: 50px 150px 0 120px;
+      padding: 50px 150px 50px 120px;
       height: 200px;
       width: 200px;
     }
   }
-  
 }
 </style>
+<style>
+.el-form-item__label {
+  color: white;
+}
+
+.form2 .el-radio {
+  color: white;
+}
+
+.form3 .el-radio {
+  color: #ff8a77;
+}
+
+.el-checkbox__label {
+  color: #ff8a77;
+}
+</style>
+

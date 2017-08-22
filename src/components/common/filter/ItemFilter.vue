@@ -2,14 +2,13 @@
   <div class="filter-container">
     <span class="title">{{ title }}</span>
     <span class="first-item">
-      <item :closable="false" :active="actived.length === 0">不限</item>
+      <item :closable="false" :active="actived.length === 0">{{ $t('all') }}</item>
     </span>
     <span class="all-select">
-      <span class="item-container" v-for="item,index in itemsToShow" :key="index">
-        <item :active="actived.indexOf(item) !== -1" @click.native="click(item)" @close="close(item)">{{ item }}</item>
+      <span class="item-container" v-for="key, index in items">
+        <item :active="actived.indexOf(index) !== -1" @click.native="click(index)" @close="close(index)">{{ key }}</item>
       </span>
     </span>
-    <span class="expand-btn" @click="expand"><i class="el-icon-arrow-down" :class="{active:expanded}"></i></span>
   </div>
 </template>
 
@@ -35,17 +34,12 @@
       }
     },
     computed: {
-      itemsToShow: function () {
-        if (!this.expanded) {
-          return this.items.slice(0, 9)
-        }
-        return this.items
-      },
     },
     methods: {
       click: function (item) {
         if (this.multiSelect) {
           if (this.actived.indexOf(item) === -1) {
+            this.actived = []
             this.actived.push(item)
           }
         } else {
@@ -71,17 +65,19 @@
 
 <style lang="scss" scoped>
 .filter-container {
-  background: white;
-  padding: 1rem 0 0 3rem;
+  background: transparent;
+  padding: 1.8em 0 0 3em;
   user-select: none;
   .all-select {
+    font-size: 0.9em;
     vertical-align: top;
     display: inline-block;
     width: 70%;
     border-bottom: 1px dashed #DDD;
     .item-container {
+      font-size: 0.8em;
+      padding-right: 18px;
       display: inline-block;
-      width: 150px;
       margin-bottom: 1rem;
     }
   }
@@ -90,26 +86,9 @@
     margin-right: 20px;
   }
   .title {
-    font-size: 14px;
+    font-size: 0.8em;
     padding: 25px;
     min-width: 200px;
-  }
-  .expand-btn {
-    display: inline-block;
-    float: right;
-    margin-right: 5%;
-    width: 16px;
-    height: 16px;
-    border: 1px solid #BBB;
-    color: #BBB;
-    cursor: pointer;
-    .el-icon-arrow-down {
-      transform: scale(0.5);
-      &.active {
-        transition: 0.2s;
-        transform: scale(0.5) rotate(180deg);
-      }
-    }
   }
 }
 </style>

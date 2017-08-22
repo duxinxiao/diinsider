@@ -14,6 +14,7 @@
 </template>
 
 <script lang="babel">
+  import Vue from 'vue'
 
   export default {
     props: {
@@ -24,22 +25,43 @@
       param: Object,
     },
     data: function () {
-      return {}
+      return {
+        message: '',
+      }
     },
     computed: {
     },
     methods: {
       open(title, msg) {
         const h = this.$createElement
-        this.$msgbox({
-          title: title,
-          message: h('div', { style: '' }, [
-            h('div', { style: 'background: url(/static/qrcode.jpeg); background-repeat: no-repeat; height: 200px; width: 200px; margin: 0 auto;' }, ''),
-            h('p', { style: 'text-align: center; margin: 0 5rem; margin-top: 2rem' }, `扫描二维码，关注diinsider公众号，回复"${msg}"，我们会提供更细致的服务`),
-          ]),
-        }).then((action) => {
+        if (Vue.config.lang === 'en') {
+          this.$emit('dialogFormVisible', true)
+          // this.$msgbox({
+          //   title: title,
+          //   message: h('div', { style: '' }, [
+          //     // h('p', { style: 'text-align: center; m
+          //     // argin: 0 5rem; margin-top: 2rem' }, 'send email to wangjh93@163.com'),
+          //     // h('el-input', { style: 'text-align:
+          //     // center; margin: 0 5rem; margin-top: 2rem' }),
+          //     h('p', { style: '' }, 'please input your email'),
+          //     h('input', { style: '' }, 'test'),
+          //     h('p', { style: '' }, 'please input message'),
+          //     h('input', { id: 'message', style: '' }, 'message'),
+          //   ]),
+          // }).then((action) => {
+          //   console.log('#{message}')
+          // })
+        } else {
+          this.$msgbox({
+            title: title,
+            message: h('div', { style: '' }, [
+              h('div', { style: 'background: url(/static/qrcode.jpeg); background-repeat: no-repeat; height: 200px; width: 200px; margin: 0 auto;' }, ''),
+              h('p', { style: 'text-align: center; margin: 0 5rem; margin-top: 2rem' }, `扫描二维码，关注diinsider公众号，回复"${msg}"，我们会提供更细致的服务`),
+            ]),
+          }).then((action) => {
 
-        })
+          })
+        }
       },
     },
     filters: {
@@ -68,15 +90,15 @@
   height: 25px;
   line-height: 25px;
   margin-top: 10px;
-  font-size: 18px;
-  color: #144282;
+  font-size: 16px;
+  color: #224467;
   font-weight: bold;
 }
 
 .subtitle {
   height: 20px;
   line-height: 20px;
-  margin-top: 10px;
+  margin-top: 2px;
   color: black;
   font-size: 12px;
 }

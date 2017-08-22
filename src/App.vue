@@ -14,10 +14,12 @@ export default {
 html {
   font-family: Helvetica Neue, Helvetica, Roboto, sans-serif, Arial;
 }
+
 a {
   text-decoration: none;
   color: inherit;
 }
+
 #app {
   background: url('/static/background.jpg');
   background-size: 100% 100%;

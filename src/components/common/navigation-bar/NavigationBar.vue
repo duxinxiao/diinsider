@@ -1,20 +1,22 @@
 <template>
   <div class="bar">
     <el-menu default-active="1" mode="horizontal" :router="true">
-      <el-menu-item class="menu-home" index="1" route="/">首页</el-menu-item>
-      <el-submenu class="menu" v-for="item in items" :key="item.id" :index="item.key">
-        <template slot="title">{{ item.title }}</template>
+      <el-menu-item class="menu-home" index="1" route="/">{{ $t('home') }}</el-menu-item>
+      <el-submenu class="menu" v-for="item in items" :key="item.id" :index="item.key" :style="item.style">
+        <template slot="title">{{ $t(item.title) }}</template>
         <div class="submenu">
-          <submenu-item v-for="subItem in item.value" :key="subItem.id" class="menu-item" :title="subItem.title" :subtitle="subItem.subtitle" :src="subItem.src" :to="subItem.to" :param="subItem.param"></submenu-item>
+          <submenu-item v-for="subItem in item.value" :key="subItem.id" class="menu-item" :title="$t(subItem.title)" :subtitle="$t(subItem.subtitle)" :src="subItem.src" :to="subItem.to" :param="subItem.param"></submenu-item>
         </div>
       </el-submenu>
-      <el-menu-item class="menu-home" index="5" route="/">寻求合作</el-menu-item>
-      <el-input class="search" placeholder="输入关键字搜索" icon="search" v-model="input2" :on-icon-click="handleIconClick">
+      <el-menu-item class="menu-home" index="5" route="/">{{ $t('menu.others') }}</el-menu-item>
+      <el-input class="search" :placeholder="$t('search')" icon="search" v-model="input2" :on-icon-click="handleIconClick">
       </el-input>
+      <el-button class="lang" type="text" @click="changeLang">en/中文</el-button>
     </el-menu>
   </div>
 </template>
 <script lang="babel">
+import Vue from 'vue'
 import SubmenuItem from './MenuItem'
 
 export default {
@@ -25,103 +27,137 @@ export default {
     return {
       items: [{
         key: 2,
-        title: '我有项目',
+        title: 'menu.changemakers',
+        style: {
+          width: '18%',
+        },
         value: [{
-          title: '寻求报道',
-          subtitle: '有机会登上Diinsider首页',
+          title: 'subMenu.interview',
+          subtitle: 'subMenu.interviewDes',
           src: '/static/interview.png',
           to: '',
         }, {
-          title: '投资对接',
-          subtitle: '为你找到最匹配的投资人',
-          src: '/static/investor.png',
+          title: 'subMenu.findInvestor',
+          subtitle: 'subMenu.findInvestorDes',
+          src: '/static/find.png',
           to: 'investor',
         }, {
-          title: '战略咨询',
-          subtitle: '完善商业模式、寻找人才、数据分析等',
-          src: '/static/solution.png',
+          title: 'subMenu.consult',
+          subtitle: 'subMenu.consultDes',
+          src: '/static/consult.png',
           to: '',
         }, {
-          title: '申请认证',
-          subtitle: '认证后更容易得到投资人青睐',
-          src: '/static/authen.png',
+          title: 'subMenu.accreditation',
+          subtitle: 'subMenu.accreditationDes',
+          src: '/static/accreditation.png',
           to: 'register',
         }],
       }, {
         key: 3,
-        title: '我要投资',
+        title: 'menu.investors',
+        style: {
+          width: '18%',
+        },
         value: [{
-          title: '项目投资',
-          subtitle: '为你找到最合适的项目',
-          src: '/static/interview.png',
-          to: '',
+          title: 'subMenu.findProject',
+          subtitle: 'subMenu.findProjectDes',
+          src: '/static/find.png',
+          to: 'startup',
         }, {
-          title: '投资Diiinsider',
-          subtitle: '我们帮您找到最合适的项目',
-          src: '/static/interview.png',
+          title: 'subMenu.investDiinsider',
+          subtitle: 'subMenu.investDiinsiderDes',
+          src: '/static/invest.png',
           to: 'investor',
         }, {
-          title: '定制研究',
-          subtitle: '项目尽职调查，助力投资决策',
-          src: '/static/solution.png',
+          title: 'subMenu.customized',
+          subtitle: 'subMenu.customizedDes',
+          src: '/static/research.png',
           to: '',
         }],
       }, {
         key: 4,
-        title: '只是看看',
+        title: 'menu.media',
         value: [{
-          title: '背景知识',
-          subtitle: '草根创新、国际发展与影响力投资',
-          src: '/static/interview.png',
+          title: 'subMenu.background',
+          subtitle: 'subMenu.backgroundDes',
+          src: '/static/knowledge.png',
           to: 'news',
           param: {
-            index: 1,
+            index: '1',
           },
         }, {
-          title: '创变杂志',
-          subtitle: '将草根将给世界听',
-          src: '/static/interview.png',
+          title: 'subMenu.change',
+          subtitle: 'subMenu.changeDes',
+          src: '/static/magazine.png',
           to: 'news',
           param: {
-            index: 2,
+            index: '2',
           },
         }, {
-          title: '机遇动态',
-          subtitle: '社会创新与新兴市场机遇动态',
-          src: '/static/solution.png',
+          title: 'subMenu.opportunity',
+          subtitle: 'subMenu.opportunityDes',
+          src: '/static/oppotunity.png',
           to: 'news',
           param: {
-            index: 3,
+            index: '3',
           },
         }, {
-          title: '活动速递',
-          subtitle: '了解最新的活动信息',
-          src: '/static/solution.png',
+          title: 'subMenu.events',
+          subtitle: 'subMenu.eventsDes',
+          src: '/static/news.png',
           to: 'news',
           param: {
-            index: 4,
+            index: '4',
           },
         }],
       }],
     }
   },
-  computed: {},
-  methods: {},
+  computed: {
+  },
+  created: function () {
+    if (Vue.config.lang === 'en') {
+      this.items[0].style.width = '18%'
+      this.items[1].style.width = '18%'
+    } else {
+      this.items[0].style.width = '12%'
+      this.items[1].style.width = '12%'
+      this.items[2].style.width = '12%'
+    }
+  },
+  methods: {
+    handleIconClick: function () {
+      console.log('search')
+    },
+    changeLang() {
+      if (Vue.config.lang === 'en') {
+        Vue.config.lang = 'cn'
+        this.items[0].style.width = '12%'
+        this.items[1].style.width = '12%'
+        this.items[2].style.width = '12%'
+      } else {
+        Vue.config.lang = 'en'
+        this.items[0].style.width = '18%'
+        this.items[1].style.width = '18%'
+      }
+    },
+  },
   filters: {},
 }
 </script>
 <style lang="scss" scoped>
 .bar {
+  padding-left: 3%;
   display: inline-block;
   z-index: 999;
-  width: 65%;
+  width: 72%;
   height: 100%;
   .menu-home {
     text-align: center;
-    width: 12%;
+    width: 10%;
   }
   .menu {
-    width: 16%;
+    width: 10%;
     text-align: center;
     display: inline-block;
     position: static;
@@ -139,16 +175,23 @@ export default {
   }
 }
 
+.lang {
+  float: right;
+  margin-top: 1.8%;
+  margin-right: 3%;
+  font-size: 12px;
+}
+
 .search {
   float: right;
-  width: 200px;
+  width: 18%;
   margin-top: 12px;
 }
 </style>
 <style>
 .el-menu-item,
 .el-submenu__title {
-  font-size: 16px;
+  font-size: 14px;
   color: white;
   padding-bottom: 20px;
 }
@@ -163,4 +206,19 @@ export default {
   background-color: #eef1f6;
   color: black
 }
+
+
+
+
+
+
+
+
+
+
+
+/* 
+.el-menu-item.is-active {
+  color:
+} */
 </style>
